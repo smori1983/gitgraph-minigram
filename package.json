@@ -15,7 +15,12 @@
     "@types/pegjs": "^0.10.3",
     "pegjs": "^0.10.0"
   },
-  "files": [],
+  "files": [
+    "src/**",
+    "CHANGELOG.md",
+    "README.md",
+    "LICENSE"
+  ],
   "repository": {
     "type": "git",
     "url": "git+https://github.com/smori1983/gitgraph-minigram.git"
