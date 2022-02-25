@@ -10,7 +10,10 @@
     "@gitgraph/core": "^1.5.0",
     "@gitgraph/js": "^1.4.0"
   },
-  "devDependencies": {},
+  "devDependencies": {
+    "@types/pegjs": "^0.10.3",
+    "pegjs": "^0.10.0"
+  },
   "files": [],
   "repository": {
     "type": "git",
