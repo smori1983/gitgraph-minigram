@@ -54,7 +54,21 @@ class Format1Parser {
         currentBranch = log.branch;
       }
 
+      if (log.type === 'branch:switch') {
+        currentBranch = log.branch;
+      }
+
       if (log.type === 'branch:create:checkout') {
+        result.push({
+          type: 'branch:create',
+          branch: log.branch,
+          from: currentBranch,
+        });
+
+        currentBranch = log.branch;
+      }
+
+      if (log.type === 'branch:create:switch') {
         result.push({
           type: 'branch:create',
           branch: log.branch,
