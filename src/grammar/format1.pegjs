@@ -39,7 +39,9 @@ log_line
   = empty_line
   / git_branch
   / git_branch_and_checkout
+  / git_branch_and_switch
   / git_checkout
+  / git_switch
   / git_commit
   / git_merge
   / git_tag
@@ -61,6 +63,24 @@ git_branch
     };
   }
 
+git_branch_and_checkout
+  = _ 'git' _ 'checkout' _ '-b' _ b:branch_name _ newline
+  {
+    return {
+      type: 'branch:create:checkout',
+      branch: b,
+    };
+  }
+
+git_branch_and_switch
+  = _ 'git' _ 'switch' _ '-c' _ b:branch_name _ newline
+  {
+    return {
+      type: 'branch:create:switch',
+      branch: b,
+    }
+  }
+
 git_checkout
   = _ 'git' __ 'checkout' __ b:branch_name _ newline
   {
@@ -70,13 +90,13 @@ git_checkout
     };
   }
 
-git_branch_and_checkout
-  = _ 'git' _ 'checkout' _ '-b' _ b:branch_name _ newline
+git_switch
+  = _ 'git' __ 'switch' __ b:branch_name _ newline
   {
     return {
-      type: 'branch:create:checkout',
+      type: 'branch:switch',
       branch: b,
-    };
+    }
   }
 
 git_commit
