@@ -1,5 +1,6 @@
 start
-  = o:segment_option?
+  = (_ newline)*
+    o:segment_option?
     l:segment_log
   {
     return {
