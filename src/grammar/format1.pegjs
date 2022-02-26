@@ -107,7 +107,7 @@ git_commit
       message: m,
     };
   }
-  / _ 'git' __ 'commit' _ newline*
+  / _ 'git' __ 'commit' _ newline
   {
     return {
       type: 'commit',
