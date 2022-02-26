@@ -6,8 +6,7 @@ class Format1Parser {
    * @returns {Object}
    */
   parse(input) {
-    const formattedInput = input.trim() + '\n';
-    const format1Parsed = format1.parse(formattedInput);
+    const format1Parsed = format1.parse(input);
 
     const defaultBranch = this._resolveDefaultBranch(format1Parsed.option);
     const actions = this._prepareActions(format1Parsed.log, defaultBranch);
