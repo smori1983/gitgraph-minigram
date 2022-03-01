@@ -27,9 +27,9 @@ class Format1GitLogger {
   create(api, input) {
     const parsed = this._parser.parse(input);
 
-    this._registerBranch(api.branch(parsed.defaultBranch));
+    this._registerBranch(api.branch(parsed.data.defaultBranch));
 
-    parsed.actions.forEach((action) => {
+    parsed.data.actions.forEach((action) => {
       if (action.type === 'branch:create') {
         this._createBranch(action);
       }

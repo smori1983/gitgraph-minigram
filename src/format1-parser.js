@@ -1,19 +1,48 @@
+/**
+ * @typedef {import('pegjs').PEG.SyntaxError} PegSyntaxError
+ */
+
+/**
+ * @typedef {Object} Format1ParserParseResult
+ * @property {boolean} status
+ * @property {Format1ParserParseData|null} data
+ * @property {PegSyntaxError|null} error
+ */
+
+/**
+ * @typedef {Object} Format1ParserParseData
+ * @property {string} defaultBranch
+ * @property {Object[]} actions
+ */
+
 const format1 = require('./grammar/format1');
 
 class Format1Parser {
   /**
    * @param {string} input
-   * @returns {Object}
+   * @returns {Format1ParserParseResult}
    */
   parse(input) {
-    const format1Parsed = format1.parse(input);
+    try {
+      const format1Parsed = format1.parse(input);
 
-    const defaultBranch = this._resolveDefaultBranch(format1Parsed.option);
-    const actions = this._prepareActions(format1Parsed.log, defaultBranch);
+      const defaultBranch = this._resolveDefaultBranch(format1Parsed.option);
+      const actions = this._prepareActions(format1Parsed.log, defaultBranch);
 
-    return {
-      defaultBranch: defaultBranch,
-      actions: actions,
+      return {
+        status: true,
+        data: {
+          defaultBranch: defaultBranch,
+          actions: actions,
+        },
+        error: null,
+      };
+    } catch (/** @type {PegSyntaxError} */ e) {
+      return {
+        status: false,
+        data: null,
+        error: e,
+      };
     }
   }
 
