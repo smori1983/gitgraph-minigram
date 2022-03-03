@@ -1,18 +1,11 @@
 /**
  * @typedef {import('@gitgraph/core/lib/user-api/gitgraph-user-api').GitgraphUserApi} GitgraphUserApi
  * @typedef {import('@gitgraph/core/lib/user-api/branch-user-api').BranchUserApi} BranchUserApi
+ * @typedef {import('./parse-data')} ParseData
  */
-
-const Format1Parser = require('./format1-parser');
 
 class GitLogger {
   constructor() {
-    /**
-     * @type {Format1Parser}
-     * @private
-     */
-    this._parser = new Format1Parser();
-
     /**
      * @type {Map<string, BranchUserApi>}
      * @private
@@ -22,14 +15,12 @@ class GitLogger {
 
   /**
    * @param {GitgraphUserApi} api
-   * @param {string} input
+   * @param {ParseData} parseData
    */
-  create(api, input) {
-    const parsed = this._parser.parse(input);
+  create(api, parseData) {
+    this._registerBranch(api.branch(parseData.getDefaultBranch()));
 
-    this._registerBranch(api.branch(parsed.data.defaultBranch));
-
-    parsed.data.actions.forEach((action) => {
+    parseData.getActions().forEach((action) => {
       if (action.type === 'branch:create') {
         this._createBranch(action);
       }
