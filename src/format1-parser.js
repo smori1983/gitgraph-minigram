@@ -1,19 +1,27 @@
 const format1 = require('./grammar/format1');
+const ParseResult = require('./parse-result');
+const ParseData = require('./parse-data');
 
 class Format1Parser {
   /**
    * @param {string} input
-   * @returns {Object}
+   * @returns {ParseResult}
    */
   parse(input) {
-    const format1Parsed = format1.parse(input);
+    try {
+      const format1Parsed = format1.parse(input);
 
-    const defaultBranch = this._resolveDefaultBranch(format1Parsed.option);
-    const actions = this._prepareActions(format1Parsed.log, defaultBranch);
+      const defaultBranch = this._resolveDefaultBranch(format1Parsed.option);
+      const actions = this._prepareActions(format1Parsed.log, defaultBranch);
 
-    return {
-      defaultBranch: defaultBranch,
-      actions: actions,
+      const parseData = new ParseData({
+        defaultBranch: defaultBranch,
+        actions: actions,
+      });
+
+      return new ParseResult(parseData, null);
+    } catch (e) {
+      return new ParseResult(null, e);
     }
   }
 
