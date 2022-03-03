@@ -5,7 +5,7 @@
 
 const Format1Parser = require('./format1-parser');
 
-class Format1GitLogger {
+class GitLogger {
   constructor() {
     /**
      * @type {Format1Parser}
@@ -109,4 +109,4 @@ class Format1GitLogger {
   }
 }
 
-module.exports = Format1GitLogger;
+module.exports = GitLogger;
