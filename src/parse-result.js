@@ -22,6 +22,9 @@ class ParseResult {
     this._error = error;
   }
 
+  /**
+   * @returns {boolean}
+   */
   parsed() {
     return this._parseData !== null;
   }
