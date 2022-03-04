@@ -134,10 +134,10 @@ git_tag
   }
 
 branch_name
-  = $([^ \t\r\n]+)
+  = $([^ \t\r\n\-][^ \t\r\n]*)
 
 tag_name
-  = $([^ \t\r\n]+)
+  = $([^ \t\r\n\-][^ \t\r\n]*)
 
 text_single_quote
   = single_quote chars:text_single_quote_char* single_quote
