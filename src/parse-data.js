@@ -17,6 +17,13 @@ class ParseData {
   }
 
   /**
+   * @returns {ParseData}
+   */
+  dump() {
+    return this._data;
+  }
+
+  /**
    * @returns {string}
    */
   getDefaultBranch() {
