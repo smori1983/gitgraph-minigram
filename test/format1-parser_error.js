@@ -29,6 +29,20 @@ module.exports = [
   {
     input: `
       [log]
+      [option]
+    `,
+    line: 3,
+  },
+  {
+    input: `
+      [log]
+      git
+    `,
+    line: 3,
+  },
+  {
+    input: `
+      [log]
       git commit -m
     `,
     line: 3,
