@@ -13,6 +13,8 @@ describe('format1-parser', () => {
 
       assert.deepStrictEqual(parseResult.parsed(), true);
       assert.deepStrictEqual(parseResult.getParseData().dump(), arg.result);
+      assert.deepStrictEqual(parseResult.getParseData().getDefaultBranch(), arg.result.defaultBranch);
+      assert.deepStrictEqual(parseResult.getParseData().getActions(), arg.result.actions);
     });
 
     given(okPatterns).it('should throw error from getError()', (arg) => {
