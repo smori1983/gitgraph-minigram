@@ -65,6 +65,32 @@ module.exports = [
   {
     input: `
       [log]
+      git checkout -b b
+    `,
+    result: {
+      defaultBranch: 'master',
+      actions: [
+        {type: 'branch:create', branch: 'b', from: 'master'},
+      ],
+    },
+  },
+  {
+    input: `
+      [log]
+      git commit
+      git tag a
+    `,
+    result: {
+      defaultBranch: 'master',
+      actions: [
+        {type: 'commit', branch: 'master', message: ''},
+        {type: 'tag', branch: 'master', tag: 'a'},
+      ],
+    },
+  },
+  {
+    input: `
+      [log]
       git commit -m '1'
       git branch feature/1
       git checkout feature/1
