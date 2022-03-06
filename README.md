@@ -7,12 +7,24 @@ Provides grammar and parser for git command (made with [pegjs](https://www.npmjs
 
 ### Basic structure of input
 
+- `[option]` is optional.
+
 ```
 [option]
 defaultBranch: <branch>
 [log]
 ...
 ```
+
+```
+[log]
+...
+```
+
+### Configuration
+
+- `defaultBranch`
+  - default: `master`
 
 ### Supported git commands in `[log]` section
 
@@ -43,11 +55,12 @@ const input = ...;
 const parseResult = parser.parse(input);
 
 if (parseResult.parsed()) {
-  const container = ...;
+  const container = ...; // HTML element to draw git commit graph.
   const graph = createGitgraph(container);
 
-  logger.create(graph, parseResult.getParseData());
+  const parseData = parseResult.getParseData();
+  logger.create(graph, parseData);
 } else {
-  const e = parseResult.getError();
+  const e = parseResult.getError(); // pegjs syntax error object.
 }
 ```
