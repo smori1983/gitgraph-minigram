@@ -646,7 +646,7 @@ function peg$parse(input, options) {
   function peg$parselog_line() {
     var s0;
 
-    s0 = peg$parseempty_line();
+    s0 = peg$parsegit_empty_line();
     if (s0 === peg$FAILED) {
       s0 = peg$parsegit_branch();
       if (s0 === peg$FAILED) {
@@ -675,7 +675,7 @@ function peg$parse(input, options) {
     return s0;
   }
 
-  function peg$parseempty_line() {
+  function peg$parsegit_empty_line() {
     var s0, s1, s2, s3;
 
     s0 = peg$currPos;
