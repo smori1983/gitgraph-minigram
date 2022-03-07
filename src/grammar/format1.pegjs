@@ -17,7 +17,17 @@ segment_option
   }
 
 option_line
-  = option_default_branch
+  = option_empty_line
+  / option_default_branch
+
+option_empty_line
+  = _ newline
+  {
+    return {
+      name: '',
+      value: '',
+    };
+  }
 
 option_default_branch
   = _ 'defaultBranch' _ ':' _ b:branch_name _ newline
