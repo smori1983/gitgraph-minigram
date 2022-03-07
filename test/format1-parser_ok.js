@@ -13,6 +13,19 @@ module.exports = [
   },
   {
     input: `
+      [log]
+
+      git commit
+    `,
+    result: {
+      defaultBranch: 'master',
+      actions: [
+        {type: 'commit', branch: 'master', message: ''},
+      ],
+    },
+  },
+  {
+    input: `
       [option]
       [log]
       git commit
@@ -27,9 +40,43 @@ module.exports = [
   {
     input: `
       [option]
+
+      [log]
+
+      git commit
+
+    `,
+    result: {
+      defaultBranch: 'master',
+      actions: [
+        {type: 'commit', branch: 'master', message: ''},
+      ],
+    },
+  },
+  {
+    input: `
+      [option]
       defaultBranch: foo
       [log]
       git commit
+    `,
+    result: {
+      defaultBranch: 'foo',
+      actions: [
+        {type: 'commit', branch: 'foo', message: ''},
+      ],
+    },
+  },
+  {
+    input: `
+      [option]
+
+      defaultBranch: foo
+
+      [log]
+
+      git commit
+
     `,
     result: {
       defaultBranch: 'foo',
