@@ -12,11 +12,13 @@ module.exports = [
     },
   },
   {
-    input: `
-      [log]
-
-      git commit
-    `,
+    input: [
+      '   ',
+      '[log]',
+      '   ',
+      'git commit',
+      '',
+    ].join('\n'),
     result: {
       defaultBranch: 'master',
       actions: [
@@ -38,14 +40,16 @@ module.exports = [
     },
   },
   {
-    input: `
-      [option]
-
-      [log]
-
-      git commit
-
-    `,
+    input: [
+      '   ',
+      '[option]',
+      '   ',
+      '[log]',
+      '   ',
+      'git commit',
+      '   ',
+      '',
+    ].join('\n'),
     result: {
       defaultBranch: 'master',
       actions: [
@@ -68,16 +72,18 @@ module.exports = [
     },
   },
   {
-    input: `
-      [option]
-
-      defaultBranch: foo
-
-      [log]
-
-      git commit
-
-    `,
+    input: [
+      '   ',
+      '[option]',
+      '   ',
+      'defaultBranch: foo',
+      '   ',
+      '[log]',
+      '   ',
+      'git commit',
+      '   ',
+      '',
+    ].join('\n'),
     result: {
       defaultBranch: 'foo',
       actions: [
