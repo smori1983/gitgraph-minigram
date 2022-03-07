@@ -36,7 +36,7 @@ segment_log
   }
 
 log_line
-  = empty_line
+  = git_empty_line
   / git_branch
   / git_branch_and_checkout
   / git_branch_and_switch
@@ -46,7 +46,7 @@ log_line
   / git_merge
   / git_tag
 
-empty_line
+git_empty_line
   = (_ newline / __)
   {
     return {
