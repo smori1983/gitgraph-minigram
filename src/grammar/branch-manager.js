@@ -11,6 +11,12 @@ class BranchManager {
      * @private
      */
     this._branches = new Set();
+
+    /**
+     * @type {string}
+     * @private
+     */
+    this._currentBranch = '';
   }
 
   /**
@@ -22,6 +28,7 @@ class BranchManager {
 
   optionParsed() {
     this.add(this._defaultBranch);
+    this.setCurrentBranch(this._defaultBranch);
   }
 
   /**
@@ -44,6 +51,21 @@ class BranchManager {
     if (!this._branches.has(branch)) {
       throw new Error('Branch not created: ' + branch);
     }
+  }
+
+  /**
+   * @param {string} branch
+   */
+  setCurrentBranch(branch) {
+    this.shouldExist(branch);
+    this._currentBranch = branch;
+  }
+
+  /**
+   * @returns {string}
+   */
+  getCurrentBranch() {
+    return this._currentBranch;
   }
 }
 

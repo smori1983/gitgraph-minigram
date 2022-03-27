@@ -189,6 +189,7 @@ function peg$parse(input, options) {
           return {
             type: 'branch:create',
             branch: b,
+            from: branchManager.getCurrentBranch(),
           };
         },
       peg$c20 = "checkout",
@@ -196,9 +197,13 @@ function peg$parse(input, options) {
       peg$c22 = "-b",
       peg$c23 = peg$literalExpectation("-b", false),
       peg$c24 = function(b) {
+          const from = branchManager.getCurrentBranch();
+          branchManager.setCurrentBranch(b);
+
           return {
-            type: 'branch:create:checkout',
+            type: 'branch:create',
             branch: b,
+            from: from,
           };
         },
       peg$c25 = "switch",
@@ -206,18 +211,26 @@ function peg$parse(input, options) {
       peg$c27 = "-c",
       peg$c28 = peg$literalExpectation("-c", false),
       peg$c29 = function(b) {
+          const from = branchManager.getCurrentBranch();
+          branchManager.setCurrentBranch(b);
+
           return {
-            type: 'branch:create:switch',
+            type: 'branch:create',
             branch: b,
+            from: from,
           }
         },
       peg$c30 = function(b) {
+          branchManager.setCurrentBranch(b);
+
           return {
             type: 'branch:checkout',
             branch: b,
           };
         },
       peg$c31 = function(b) {
+          branchManager.setCurrentBranch(b);
+
           return {
             type: 'branch:switch',
             branch: b,
@@ -230,12 +243,14 @@ function peg$parse(input, options) {
       peg$c36 = function(m) {
           return {
             type: 'commit',
+            branch: branchManager.getCurrentBranch(),
             message: m,
           };
         },
       peg$c37 = function() {
           return {
             type: 'commit',
+            branch: branchManager.getCurrentBranch(),
             message: '',
           };
         },
@@ -245,6 +260,7 @@ function peg$parse(input, options) {
           return {
             type: 'merge',
             branch: b,
+            into: branchManager.getCurrentBranch(),
           };
         },
       peg$c41 = "tag",
@@ -252,6 +268,7 @@ function peg$parse(input, options) {
       peg$c43 = function(t) {
           return {
             type: 'tag',
+            branch: branchManager.getCurrentBranch(),
             tag: t,
           };
         },

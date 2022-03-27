@@ -77,30 +77,41 @@ git_branch
     return {
       type: 'branch:create',
       branch: b,
+      from: branchManager.getCurrentBranch(),
     };
   }
 
 git_branch_and_checkout
   = _ 'git' _ 'checkout' _ '-b' _ b:branch_add _ newline
   {
+    const from = branchManager.getCurrentBranch();
+    branchManager.setCurrentBranch(b);
+
     return {
-      type: 'branch:create:checkout',
+      type: 'branch:create',
       branch: b,
+      from: from,
     };
   }
 
 git_branch_and_switch
   = _ 'git' _ 'switch' _ '-c' _ b:branch_add _ newline
   {
+    const from = branchManager.getCurrentBranch();
+    branchManager.setCurrentBranch(b);
+
     return {
-      type: 'branch:create:switch',
+      type: 'branch:create',
       branch: b,
+      from: from,
     }
   }
 
 git_checkout
   = _ 'git' __ 'checkout' __ b:branch_get _ newline
   {
+    branchManager.setCurrentBranch(b);
+
     return {
       type: 'branch:checkout',
       branch: b,
@@ -110,6 +121,8 @@ git_checkout
 git_switch
   = _ 'git' __ 'switch' __ b:branch_get _ newline
   {
+    branchManager.setCurrentBranch(b);
+
     return {
       type: 'branch:switch',
       branch: b,
@@ -121,6 +134,7 @@ git_commit
   {
     return {
       type: 'commit',
+      branch: branchManager.getCurrentBranch(),
       message: m,
     };
   }
@@ -128,6 +142,7 @@ git_commit
   {
     return {
       type: 'commit',
+      branch: branchManager.getCurrentBranch(),
       message: '',
     };
   }
@@ -138,6 +153,7 @@ git_merge
     return {
       type: 'merge',
       branch: b,
+      into: branchManager.getCurrentBranch(),
     };
   }
 
@@ -146,6 +162,7 @@ git_tag
   {
     return {
       type: 'tag',
+      branch: branchManager.getCurrentBranch(),
       tag: t,
     };
   }
