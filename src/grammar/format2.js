@@ -141,7 +141,7 @@ function peg$parse(input, options) {
       peg$startRuleFunctions = { start: peg$parsestart },
       peg$startRuleFunction  = peg$parsestart,
 
-      peg$c0 = function(o) { branchManager.optionParsed(); return true; },
+      peg$c0 = function(o) { logManager.optionParsed(); return true; },
       peg$c1 = function(o, l) {
           return {
             option: o || [],
@@ -164,7 +164,7 @@ function peg$parse(input, options) {
       peg$c8 = ":",
       peg$c9 = peg$literalExpectation(":", false),
       peg$c10 = function(b) {
-          branchManager.setDefaultBranch(b);
+          logManager.setDefaultBranch(b);
 
           return {
             name: 'defaultBranch',
@@ -189,7 +189,7 @@ function peg$parse(input, options) {
           return {
             type: 'branch:create',
             branch: b,
-            from: branchManager.getCurrentBranch(),
+            from: logManager.getCurrentBranch(),
           };
         },
       peg$c20 = "checkout",
@@ -197,8 +197,8 @@ function peg$parse(input, options) {
       peg$c22 = "-b",
       peg$c23 = peg$literalExpectation("-b", false),
       peg$c24 = function(b) {
-          const from = branchManager.getCurrentBranch();
-          branchManager.setCurrentBranch(b);
+          const from = logManager.getCurrentBranch();
+          logManager.setCurrentBranch(b);
 
           return {
             type: 'branch:create',
@@ -211,8 +211,8 @@ function peg$parse(input, options) {
       peg$c27 = "-c",
       peg$c28 = peg$literalExpectation("-c", false),
       peg$c29 = function(b) {
-          const from = branchManager.getCurrentBranch();
-          branchManager.setCurrentBranch(b);
+          const from = logManager.getCurrentBranch();
+          logManager.setCurrentBranch(b);
 
           return {
             type: 'branch:create',
@@ -221,7 +221,7 @@ function peg$parse(input, options) {
           }
         },
       peg$c30 = function(b) {
-          branchManager.setCurrentBranch(b);
+          logManager.setCurrentBranch(b);
 
           return {
             type: 'branch:checkout',
@@ -229,7 +229,7 @@ function peg$parse(input, options) {
           };
         },
       peg$c31 = function(b) {
-          branchManager.setCurrentBranch(b);
+          logManager.setCurrentBranch(b);
 
           return {
             type: 'branch:switch',
@@ -243,14 +243,14 @@ function peg$parse(input, options) {
       peg$c36 = function(m) {
           return {
             type: 'commit',
-            branch: branchManager.getCurrentBranch(),
+            branch: logManager.getCurrentBranch(),
             message: m,
           };
         },
       peg$c37 = function() {
           return {
             type: 'commit',
-            branch: branchManager.getCurrentBranch(),
+            branch: logManager.getCurrentBranch(),
             message: '',
           };
         },
@@ -260,7 +260,7 @@ function peg$parse(input, options) {
           return {
             type: 'merge',
             branch: b,
-            into: branchManager.getCurrentBranch(),
+            into: logManager.getCurrentBranch(),
           };
         },
       peg$c41 = "tag",
@@ -268,13 +268,13 @@ function peg$parse(input, options) {
       peg$c43 = function(t) {
           return {
             type: 'tag',
-            branch: branchManager.getCurrentBranch(),
+            branch: logManager.getCurrentBranch(),
             tag: t,
           };
         },
       peg$c44 = function(b) {
           try {
-            branchManager.add(b);
+            logManager.addBranch(b);
           } catch (e) {
             error(e.message);
           }
@@ -283,7 +283,7 @@ function peg$parse(input, options) {
         },
       peg$c45 = function(b) {
           try {
-            branchManager.shouldExist(b);
+            logManager.ensureBranch(b);
           } catch (e) {
             error(e.message);
           }
@@ -1861,7 +1861,7 @@ function peg$parse(input, options) {
   }
 
 
-    const branchManager = options.branchManager;
+    const logManager = options.logManager;
 
 
   peg$result = peg$startRuleFunction();

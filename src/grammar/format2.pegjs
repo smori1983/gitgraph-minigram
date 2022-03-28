@@ -1,11 +1,11 @@
 {
-  const branchManager = options.branchManager;
+  const logManager = options.logManager;
 }
 
 start
   = (_ newline)*
     o:segment_option?
-    &{ branchManager.optionParsed(); return true; }
+    &{ logManager.optionParsed(); return true; }
     l:segment_log
   {
     return {
@@ -37,7 +37,7 @@ option_empty_line
 option_default_branch
   = _ 'defaultBranch' _ ':' _ b:branch_name _ newline
   {
-    branchManager.setDefaultBranch(b);
+    logManager.setDefaultBranch(b);
 
     return {
       name: 'defaultBranch',
@@ -77,15 +77,15 @@ git_branch
     return {
       type: 'branch:create',
       branch: b,
-      from: branchManager.getCurrentBranch(),
+      from: logManager.getCurrentBranch(),
     };
   }
 
 git_branch_and_checkout
   = _ 'git' _ 'checkout' _ '-b' _ b:branch_add _ newline
   {
-    const from = branchManager.getCurrentBranch();
-    branchManager.setCurrentBranch(b);
+    const from = logManager.getCurrentBranch();
+    logManager.setCurrentBranch(b);
 
     return {
       type: 'branch:create',
@@ -97,8 +97,8 @@ git_branch_and_checkout
 git_branch_and_switch
   = _ 'git' _ 'switch' _ '-c' _ b:branch_add _ newline
   {
-    const from = branchManager.getCurrentBranch();
-    branchManager.setCurrentBranch(b);
+    const from = logManager.getCurrentBranch();
+    logManager.setCurrentBranch(b);
 
     return {
       type: 'branch:create',
@@ -110,7 +110,7 @@ git_branch_and_switch
 git_checkout
   = _ 'git' __ 'checkout' __ b:branch_get _ newline
   {
-    branchManager.setCurrentBranch(b);
+    logManager.setCurrentBranch(b);
 
     return {
       type: 'branch:checkout',
@@ -121,7 +121,7 @@ git_checkout
 git_switch
   = _ 'git' __ 'switch' __ b:branch_get _ newline
   {
-    branchManager.setCurrentBranch(b);
+    logManager.setCurrentBranch(b);
 
     return {
       type: 'branch:switch',
@@ -134,7 +134,7 @@ git_commit
   {
     return {
       type: 'commit',
-      branch: branchManager.getCurrentBranch(),
+      branch: logManager.getCurrentBranch(),
       message: m,
     };
   }
@@ -142,7 +142,7 @@ git_commit
   {
     return {
       type: 'commit',
-      branch: branchManager.getCurrentBranch(),
+      branch: logManager.getCurrentBranch(),
       message: '',
     };
   }
@@ -153,7 +153,7 @@ git_merge
     return {
       type: 'merge',
       branch: b,
-      into: branchManager.getCurrentBranch(),
+      into: logManager.getCurrentBranch(),
     };
   }
 
@@ -162,7 +162,7 @@ git_tag
   {
     return {
       type: 'tag',
-      branch: branchManager.getCurrentBranch(),
+      branch: logManager.getCurrentBranch(),
       tag: t,
     };
   }
@@ -171,7 +171,7 @@ branch_add
   = b:branch_name
   {
     try {
-      branchManager.add(b);
+      logManager.addBranch(b);
     } catch (e) {
       error(e.message);
     }
@@ -183,7 +183,7 @@ branch_get
   = b:branch_name
   {
     try {
-      branchManager.shouldExist(b);
+      logManager.ensureBranch(b);
     } catch (e) {
       error(e.message);
     }

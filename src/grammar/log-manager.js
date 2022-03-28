@@ -1,4 +1,4 @@
-class BranchManager {
+class LogManager {
   constructor() {
     /**
      * @type {string}
@@ -27,7 +27,7 @@ class BranchManager {
   }
 
   optionParsed() {
-    this.add(this._defaultBranch);
+    this.addBranch(this._defaultBranch);
     this.setCurrentBranch(this._defaultBranch);
   }
 
@@ -35,7 +35,7 @@ class BranchManager {
    * @param {string} branch
    * @throws {Error}
    */
-  add(branch) {
+  addBranch(branch) {
     if (this._branches.has(branch)) {
       throw new Error('Branch already exists: ' + branch);
     }
@@ -47,7 +47,7 @@ class BranchManager {
    * @param {string} branch
    * @throws {Error}
    */
-  shouldExist(branch) {
+  ensureBranch(branch) {
     if (!this._branches.has(branch)) {
       throw new Error('Branch not created: ' + branch);
     }
@@ -57,7 +57,7 @@ class BranchManager {
    * @param {string} branch
    */
   setCurrentBranch(branch) {
-    this.shouldExist(branch);
+    this.ensureBranch(branch);
     this._currentBranch = branch;
   }
 
@@ -69,4 +69,4 @@ class BranchManager {
   }
 }
 
-module.exports = BranchManager;
+module.exports = LogManager;
