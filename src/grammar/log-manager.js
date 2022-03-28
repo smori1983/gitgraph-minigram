@@ -13,6 +13,12 @@ class LogManager {
     this._branches = new Set();
 
     /**
+     * @type {Set<string>}
+     * @private
+     */
+    this._tags = new Set();
+
+    /**
      * @type {string}
      * @private
      */
@@ -66,6 +72,18 @@ class LogManager {
    */
   getCurrentBranch() {
     return this._currentBranch;
+  }
+
+  /**
+   * @param {string} tag
+   * @throws {Error}
+   */
+  addTag(tag) {
+    if (this._tags.has(tag)) {
+      throw new Error('Tag already exists: ' + tag);
+    }
+
+    this._tags.add(tag);
   }
 }
 

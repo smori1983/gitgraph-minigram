@@ -158,7 +158,7 @@ git_merge
   }
 
 git_tag
-  = _ 'git' __ 'tag' __ t:tag_name _ newline
+  = _ 'git' __ 'tag' __ t:tag_add _ newline
   {
     return {
       type: 'tag',
@@ -189,6 +189,18 @@ branch_get
     }
 
     return b;
+  }
+
+tag_add
+  = t:tag_name
+  {
+    try {
+      logManager.addTag(t);
+    } catch (e) {
+      error(e.message);
+    }
+
+    return t;
   }
 
 branch_name
