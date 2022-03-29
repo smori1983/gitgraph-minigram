@@ -5,9 +5,9 @@ const Parser = require('../src/format2-parser');
 
 describe('format2-parser', () => {
   describe('ok pattern', () => {
-    const okPatterns = require('./format1-parser_ok');
+    const patterns = require('./input_ok_common');
 
-    given(okPatterns).it('should parse', (arg) => {
+    given(patterns).it('should parse', (arg) => {
       const parser = new Parser();
       const parseResult = parser.parse(arg.input);
 
@@ -17,7 +17,7 @@ describe('format2-parser', () => {
       assert.deepStrictEqual(parseResult.getParseData().getActions(), arg.result.actions);
     });
 
-    given(okPatterns).it('should throw error from getError()', (arg) => {
+    given(patterns).it('should throw error from getError()', (arg) => {
       const parser = new Parser();
       const parseResult = parser.parse(arg.input);
 
@@ -28,9 +28,9 @@ describe('format2-parser', () => {
   });
 
   describe('error pattern', () => {
-    const errorPatterns = require('./format1-parser_error');
+    const patterns = require('./input_error_common');
 
-    given(errorPatterns).it('should not parse', (arg) => {
+    given(patterns).it('should not parse', (arg) => {
       const parser = new Parser();
       const parseResult = parser.parse(arg.input);
 
@@ -41,7 +41,7 @@ describe('format2-parser', () => {
       assert.deepStrictEqual(error.location.start.line, arg.line);
     });
 
-    given(errorPatterns).it('should throw error from getParseData()', (arg) => {
+    given(patterns).it('should throw error from getParseData()', (arg) => {
       const parser = new Parser();
       const parseResult = parser.parse(arg.input);
 
