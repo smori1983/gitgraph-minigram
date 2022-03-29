@@ -51,8 +51,15 @@ class Format2Parser {
    * @private
    */
   _prepareActions(logs) {
+    const targets = [
+      'branch:create',
+      'commit',
+      'merge',
+      'tag',
+    ];
+
     return logs.filter((log) => {
-      return log.type !== 'empty_line';
+      return targets.indexOf(log.type) >= 0;
     });
   }
 }
