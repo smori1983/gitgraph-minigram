@@ -15,7 +15,7 @@ class Format2Parser {
       });
 
       const defaultBranch = this._resolveDefaultBranch(format2Parsed.option);
-      const actions = format2Parsed.log;
+      const actions = this._prepareActions(format2Parsed.log);
 
       const parseData = new ParseData({
         defaultBranch: defaultBranch,
@@ -43,6 +43,17 @@ class Format2Parser {
     }
 
     return result;
+  }
+
+  /**
+   * @param {Object[]} logs
+   * @returns {Object[]}
+   * @private
+   */
+  _prepareActions(logs) {
+    return logs.filter((log) => {
+      return log.type !== 'empty_line';
+    });
   }
 }
 
