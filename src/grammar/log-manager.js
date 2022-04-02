@@ -1,3 +1,24 @@
+class Branch {
+  constructor() {
+    /**
+     * @type {number}
+     * @private
+     */
+    this._commits = 0;
+  }
+
+  incrementCommitCount() {
+    this._commits += 1;
+  }
+
+  /**
+   * @returns {number}
+   */
+  getCommitCount() {
+    return this._commits;
+  }
+}
+
 class LogManager {
   constructor() {
     /**
@@ -7,10 +28,10 @@ class LogManager {
     this._defaultBranch = 'master';
 
     /**
-     * @type {Set<string>}
+     * @type {Map<string, Branch>}
      * @private
      */
-    this._branches = new Set();
+    this._branches = new Map();
 
     /**
      * @type {Set<string>}
@@ -46,7 +67,7 @@ class LogManager {
       throw new Error('Branch already exists: ' + branch);
     }
 
-    this._branches.add(branch);
+    this._branches.set(branch, new Branch());
   }
 
   /**
@@ -57,6 +78,14 @@ class LogManager {
     if (!this._branches.has(branch)) {
       throw new Error('Branch not created: ' + branch);
     }
+  }
+
+  /**
+   * @param {string} branch
+   */
+  addCommit(branch) {
+    this.ensureBranch(branch);
+    this._branches.get(branch).incrementCommitCount();
   }
 
   /**

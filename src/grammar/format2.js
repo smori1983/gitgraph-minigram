@@ -241,16 +241,22 @@ function peg$parse(input, options) {
       peg$c34 = "-m",
       peg$c35 = peg$literalExpectation("-m", false),
       peg$c36 = function(m) {
+          const branch = logManager.getCurrentBranch();
+          logManager.addCommit(branch);
+
           return {
             type: 'commit',
-            branch: logManager.getCurrentBranch(),
+            branch: branch,
             message: m,
           };
         },
       peg$c37 = function() {
+          const branch = logManager.getCurrentBranch();
+          logManager.addCommit(branch);
+
           return {
             type: 'commit',
-            branch: logManager.getCurrentBranch(),
+            branch: branch,
             message: '',
           };
         },

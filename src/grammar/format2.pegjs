@@ -132,17 +132,23 @@ git_switch
 git_commit
   = _ 'git' __ 'commit' __ '-m' __ m:(text_single_quote / text_double_quote) _ newline
   {
+    const branch = logManager.getCurrentBranch();
+    logManager.addCommit(branch);
+
     return {
       type: 'commit',
-      branch: logManager.getCurrentBranch(),
+      branch: branch,
       message: m,
     };
   }
   / _ 'git' __ 'commit' _ newline
   {
+    const branch = logManager.getCurrentBranch();
+    logManager.addCommit(branch);
+
     return {
       type: 'commit',
-      branch: logManager.getCurrentBranch(),
+      branch: branch,
       message: '',
     };
   }
