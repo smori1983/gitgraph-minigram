@@ -82,7 +82,7 @@ git_branch
   }
 
 git_branch_and_checkout
-  = _ 'git' _ 'checkout' _ '-b' _ b:branch_add _ newline
+  = _ 'git' __ 'checkout' __ '-b' __ b:branch_add _ newline
   {
     const from = logManager.getCurrentBranch();
     logManager.setCurrentBranch(b);
@@ -95,7 +95,7 @@ git_branch_and_checkout
   }
 
 git_branch_and_switch
-  = _ 'git' _ 'switch' _ '-c' _ b:branch_add _ newline
+  = _ 'git' __ 'switch' __ '-c' __ b:branch_add _ newline
   {
     const from = logManager.getCurrentBranch();
     logManager.setCurrentBranch(b);
