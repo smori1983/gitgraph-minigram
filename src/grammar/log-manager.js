@@ -108,6 +108,14 @@ class LogManager {
    * @throws {Error}
    */
   addTag(tag) {
+    const branch = this.getCurrentBranch();
+
+    this.ensureBranch(branch);
+
+    if (this._branches.get(branch).getCommitCount() === 0) {
+      throw new Error('Branch should have at least 1 commit: ' + branch);
+    }
+
     if (this._tags.has(tag)) {
       throw new Error('Tag already exists: ' + tag);
     }
