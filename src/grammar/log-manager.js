@@ -90,6 +90,18 @@ class LogManager {
 
   /**
    * @param {string} branch
+   * @throws {Error}
+   */
+  checkBranchForMerge(branch) {
+    this.ensureBranch(branch);
+
+    if (this._branches.get(branch).getCommitCount() === 0) {
+      throw new Error('Branch should have at least 1 commit: ' + branch);
+    }
+  }
+
+  /**
+   * @param {string} branch
    */
   setCurrentBranch(branch) {
     this.ensureBranch(branch);

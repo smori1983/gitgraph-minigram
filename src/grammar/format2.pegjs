@@ -154,12 +154,20 @@ git_commit
   }
 
 git_merge
-  = _ 'git' __ 'merge' __ b:branch_get _ newline
+  = _ 'git' __ 'merge' __ b:branch_merge _ newline
   {
+    const into = logManager.getCurrentBranch();
+
+    try {
+      logManager.checkBranchForMerge(into);
+    } catch (e) {
+      error(e.message);
+    }
+
     return {
       type: 'merge',
       branch: b,
-      into: logManager.getCurrentBranch(),
+      into: into,
     };
   }
 
@@ -190,6 +198,18 @@ branch_get
   {
     try {
       logManager.ensureBranch(b);
+    } catch (e) {
+      error(e.message);
+    }
+
+    return b;
+  }
+
+branch_merge
+  = b:branch_name
+  {
+    try {
+      logManager.checkBranchForMerge(b);
     } catch (e) {
       error(e.message);
     }
