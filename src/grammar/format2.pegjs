@@ -74,10 +74,12 @@ git_empty_line
 git_branch
   = _ 'git' __ 'branch' __ b:branch_add _ newline
   {
+    const from = logManager.getCurrentBranch();
+
     return {
       type: 'branch:create',
       branch: b,
-      from: logManager.getCurrentBranch(),
+      from: from,
     };
   }
 
@@ -174,9 +176,11 @@ git_merge
 git_tag
   = _ 'git' __ 'tag' __ t:tag_add _ newline
   {
+    const branch = logManager.getCurrentBranch();
+
     return {
       type: 'tag',
-      branch: logManager.getCurrentBranch(),
+      branch: branch,
       tag: t,
     };
   }

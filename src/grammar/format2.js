@@ -186,10 +186,12 @@ function peg$parse(input, options) {
       peg$c17 = "branch",
       peg$c18 = peg$literalExpectation("branch", false),
       peg$c19 = function(b) {
+          const from = logManager.getCurrentBranch();
+
           return {
             type: 'branch:create',
             branch: b,
-            from: logManager.getCurrentBranch(),
+            from: from,
           };
         },
       peg$c20 = "checkout",
@@ -280,9 +282,11 @@ function peg$parse(input, options) {
       peg$c41 = "tag",
       peg$c42 = peg$literalExpectation("tag", false),
       peg$c43 = function(t) {
+          const branch = logManager.getCurrentBranch();
+
           return {
             type: 'tag',
-            branch: logManager.getCurrentBranch(),
+            branch: branch,
             tag: t,
           };
         },
