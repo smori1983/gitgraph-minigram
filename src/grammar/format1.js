@@ -831,7 +831,7 @@ function peg$parse(input, options) {
         if (peg$silentFails === 0) { peg$fail(peg$c15); }
       }
       if (s2 !== peg$FAILED) {
-        s3 = peg$parse_();
+        s3 = peg$parse__();
         if (s3 !== peg$FAILED) {
           if (input.substr(peg$currPos, 8) === peg$c19) {
             s4 = peg$c19;
@@ -841,7 +841,7 @@ function peg$parse(input, options) {
             if (peg$silentFails === 0) { peg$fail(peg$c20); }
           }
           if (s4 !== peg$FAILED) {
-            s5 = peg$parse_();
+            s5 = peg$parse__();
             if (s5 !== peg$FAILED) {
               if (input.substr(peg$currPos, 2) === peg$c21) {
                 s6 = peg$c21;
@@ -851,7 +851,7 @@ function peg$parse(input, options) {
                 if (peg$silentFails === 0) { peg$fail(peg$c22); }
               }
               if (s6 !== peg$FAILED) {
-                s7 = peg$parse_();
+                s7 = peg$parse__();
                 if (s7 !== peg$FAILED) {
                   s8 = peg$parsebranch_name();
                   if (s8 !== peg$FAILED) {
@@ -920,7 +920,7 @@ function peg$parse(input, options) {
         if (peg$silentFails === 0) { peg$fail(peg$c15); }
       }
       if (s2 !== peg$FAILED) {
-        s3 = peg$parse_();
+        s3 = peg$parse__();
         if (s3 !== peg$FAILED) {
           if (input.substr(peg$currPos, 6) === peg$c24) {
             s4 = peg$c24;
@@ -930,7 +930,7 @@ function peg$parse(input, options) {
             if (peg$silentFails === 0) { peg$fail(peg$c25); }
           }
           if (s4 !== peg$FAILED) {
-            s5 = peg$parse_();
+            s5 = peg$parse__();
             if (s5 !== peg$FAILED) {
               if (input.substr(peg$currPos, 2) === peg$c26) {
                 s6 = peg$c26;
@@ -940,7 +940,7 @@ function peg$parse(input, options) {
                 if (peg$silentFails === 0) { peg$fail(peg$c27); }
               }
               if (s6 !== peg$FAILED) {
-                s7 = peg$parse_();
+                s7 = peg$parse__();
                 if (s7 !== peg$FAILED) {
                   s8 = peg$parsebranch_name();
                   if (s8 !== peg$FAILED) {

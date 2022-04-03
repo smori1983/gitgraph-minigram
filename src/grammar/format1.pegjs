@@ -74,7 +74,7 @@ git_branch
   }
 
 git_branch_and_checkout
-  = _ 'git' _ 'checkout' _ '-b' _ b:branch_name _ newline
+  = _ 'git' __ 'checkout' __ '-b' __ b:branch_name _ newline
   {
     return {
       type: 'branch:create:checkout',
@@ -83,7 +83,7 @@ git_branch_and_checkout
   }
 
 git_branch_and_switch
-  = _ 'git' _ 'switch' _ '-c' _ b:branch_name _ newline
+  = _ 'git' __ 'switch' __ '-c' __ b:branch_name _ newline
   {
     return {
       type: 'branch:create:switch',
