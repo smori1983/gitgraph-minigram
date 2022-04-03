@@ -73,6 +73,28 @@ module.exports = [
     line: 4,
   },
 
+  // Merge: no commits on branch
+  {
+    input: `
+      [log]
+      git commit
+      git switch -c foo
+      git checkout master
+      git merge foo
+    `,
+    line: 6,
+  },
+  {
+    input: `
+      [log]
+      git switch -c foo
+      git commit
+      git checkout master
+      git merge foo
+    `,
+    line: 6,
+  },
+
   // Tag already exists
   {
     input: `
