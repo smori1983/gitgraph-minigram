@@ -200,8 +200,10 @@ branch_get
 tag_add
   = t:tag_name
   {
+    const branch = logManager.getCurrentBranch();
+
     try {
-      logManager.addTag(t);
+      logManager.addTag(branch, t);
     } catch (e) {
       error(e.message);
     }

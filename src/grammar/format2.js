@@ -297,8 +297,10 @@ function peg$parse(input, options) {
           return b;
         },
       peg$c46 = function(t) {
+          const branch = logManager.getCurrentBranch();
+
           try {
-            logManager.addTag(t);
+            logManager.addTag(branch, t);
           } catch (e) {
             error(e.message);
           }

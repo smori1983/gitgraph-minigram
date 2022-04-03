@@ -104,12 +104,11 @@ class LogManager {
   }
 
   /**
+   * @param {string} branch
    * @param {string} tag
    * @throws {Error}
    */
-  addTag(tag) {
-    const branch = this.getCurrentBranch();
-
+  addTag(branch, tag) {
     this.ensureBranch(branch);
 
     if (this._branches.get(branch).getCommitCount() === 0) {
