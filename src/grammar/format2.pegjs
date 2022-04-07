@@ -235,10 +235,10 @@ tag_add
     return t;
   }
 
-branch_name
+branch_name 'branch name'
   = $([^ \t\r\n\-][^ \t\r\n]*)
 
-tag_name
+tag_name 'tag name'
   = $([^ \t\r\n\-][^ \t\r\n]*)
 
 text_single_quote
@@ -247,7 +247,7 @@ text_single_quote
     return chars.join('');
   }
 
-text_single_quote_char
+text_single_quote_char 'text'
   = !single_quote char:[^\r\n]
   {
     return char;
@@ -259,7 +259,7 @@ text_double_quote
     return chars.join('');
   }
 
-text_double_quote_char
+text_double_quote_char 'text'
   = !double_quote char:[^\r\n]
   {
     return char;
@@ -271,11 +271,11 @@ single_quote
 double_quote
   = '"'
 
-_
+_ 'space'
   = [ \t]*
 
-__
+__ 'space'
   = [ \t]+
 
-newline
+newline 'newline'
   = [\r\n]+
