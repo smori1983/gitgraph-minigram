@@ -1,9 +1,9 @@
 const { describe } = require('mocha');
 const { given } = require('mocha-testdata');
 const assert = require('assert');
-const Parser = require('../src/format1-parser');
+const Parser = require('../src/format2-parser');
 
-describe('format1-parser', () => {
+describe('format2-parser', () => {
   describe('ok pattern', () => {
     const patterns = require('./input_ok_common');
 
@@ -28,7 +28,9 @@ describe('format1-parser', () => {
   });
 
   describe('error pattern', () => {
-    const patterns = require('./input_error_common');
+    const patternsCommon = require('./input_error_common');
+    const patternsFormat2 = require('./input_error_format2');
+    const patterns = [].concat(patternsCommon, patternsFormat2);
 
     given(patterns).it('should not parse', (arg) => {
       const parser = new Parser();
