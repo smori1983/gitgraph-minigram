@@ -70,6 +70,28 @@ class Branch {
   }
 }
 
+class TagList {
+  constructor() {
+    /**
+     * @type {Set<string>}
+     * @private
+     */
+    this._tags = new Set();
+  }
+
+  /**
+   * @param {string} tag
+   * @throws {Error}
+   */
+  add(tag) {
+    if (this._tags.has(tag)) {
+      throw new Error('Tag already exists: ' + tag);
+    }
+
+    this._tags.add(tag);
+  }
+}
+
 class LogManager {
   constructor() {
     /**
@@ -85,10 +107,10 @@ class LogManager {
     this._branchList = new BranchList();
 
     /**
-     * @type {Set<string>}
+     * @type {TagList}
      * @private
      */
-    this._tags = new Set();
+    this._tagList = new TagList();
 
     /**
      * @type {Branch|null}
@@ -166,11 +188,7 @@ class LogManager {
       throw new Error('Branch should have at least 1 commit: ' + branch);
     }
 
-    if (this._tags.has(tag)) {
-      throw new Error('Tag already exists: ' + tag);
-    }
-
-    this._tags.add(tag);
+    this._tagList.add(tag);
   }
 }
 
