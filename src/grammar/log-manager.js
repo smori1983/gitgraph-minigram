@@ -132,6 +132,148 @@ class LogManager {
   }
 
   /**
+   * @returns {Object}
+   */
+  gitEmptyLine() {
+    return {
+      type: 'empty_line',
+    };
+  }
+
+  /**
+   * @param {string} branch
+   * @returns {Object}
+   * @throws {Error}
+   */
+  gitBranch(branch) {
+    const from = this.getCurrentBranch();
+
+    this.addBranch(branch);
+
+    return {
+      type: 'branch:create',
+      branch: branch,
+      from: from,
+    };
+  }
+
+  /**
+   * @param {string} branch
+   * @returns {Object}
+   * @throws {Error}
+   */
+  gitBranchAndCheckout(branch) {
+    const from = this.getCurrentBranch();
+
+    this.addBranch(branch);
+    this.setCurrentBranch(branch);
+
+    return {
+      type: 'branch:create',
+      branch: branch,
+      from: from,
+    };
+  }
+
+  /**
+   * @param {string} branch
+   * @returns {Object}
+   * @throws {Error}
+   */
+  gitBranchAndSwitch(branch) {
+    const from = this.getCurrentBranch();
+
+    this.addBranch(branch);
+    this.setCurrentBranch(branch);
+
+    return {
+      type: 'branch:create',
+      branch: branch,
+      from: from,
+    };
+  }
+
+  /**
+   * @param {string} branch
+   * @returns {Object}
+   * @throws {Error}
+   */
+  gitCheckout(branch) {
+    this.setCurrentBranch(branch);
+
+    return {
+      type: 'branch:checkout',
+      branch: branch,
+    };
+  }
+
+  /**
+   * @param {string} branch
+   * @returns {Object}
+   * @throws {Error}
+   */
+  gitSwitch(branch) {
+    this.setCurrentBranch(branch);
+
+    return {
+      type: 'branch:switch',
+      branch: branch,
+    };
+  }
+
+  /**
+   * @param {string} message
+   * @return {Object}
+   * @throws {Error}
+   */
+  gitCommit(message) {
+    const branch = this.getCurrentBranch();
+
+    this.addCommit(branch);
+
+    return {
+      type: 'commit',
+      branch: branch,
+      message: message,
+    };
+  }
+
+  /**
+   * @param {string} branch
+   * @return {Object}
+   * @throws {Error}
+   */
+  gitMerge(branch) {
+    const into = this.getCurrentBranch();
+
+    this.checkBranchForMerge(branch);
+    this.checkBranchForMerge(into);
+
+    return {
+      type: 'merge',
+      branch: branch,
+      into: into,
+    };
+  }
+
+  /**
+   * @param {string} tag
+   * @return {Object}
+   * @throws {Error}
+   */
+  gitTag(tag) {
+    const branch = this.getCurrentBranch();
+
+    this.addTag(branch, tag);
+
+    return {
+      type: 'tag',
+      branch: branch,
+      tag: tag,
+    };
+  }
+
+  /**
    * @param {string} branch
    * @throws {Error}
    */
