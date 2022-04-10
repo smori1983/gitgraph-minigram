@@ -1,10 +1,61 @@
-class Branch {
+class BranchList {
   constructor() {
+    /**
+     * @type {Map<string, Branch>}
+     * @private
+     */
+    this._branches = new Map();
+  }
+
+  /**
+   * @param {string} branch
+   * @throws {Error}
+   */
+  add(branch) {
+    if (this._branches.has(branch)) {
+      throw new Error('Branch already exists: ' + branch);
+    }
+
+    this._branches.set(branch, new Branch(branch));
+  }
+
+  /**
+   * @param {string} branch
+   * @return {Branch}
+   * @throws {Error}
+   */
+  get(branch) {
+    if (!this._branches.has(branch)) {
+      throw new Error('Branch not created: ' + branch);
+    }
+
+    return this._branches.get(branch);
+  }
+}
+
+class Branch {
+  /**
+   * @param {string} name
+   */
+  constructor(name) {
+    /**
+     * @type {string}
+     * @private
+     */
+    this._name = name;
+
     /**
      * @type {number}
      * @private
      */
     this._commits = 0;
+  }
+
+  /**
+   * @returns {string}
+   */
+  getName() {
+    return this._name;
   }
 
   incrementCommitCount() {
@@ -19,6 +70,28 @@ class Branch {
   }
 }
 
+class TagList {
+  constructor() {
+    /**
+     * @type {Set<string>}
+     * @private
+     */
+    this._tags = new Set();
+  }
+
+  /**
+   * @param {string} tag
+   * @throws {Error}
+   */
+  add(tag) {
+    if (this._tags.has(tag)) {
+      throw new Error('Tag already exists: ' + tag);
+    }
+
+    this._tags.add(tag);
+  }
+}
+
 class LogManager {
   constructor() {
     /**
@@ -28,22 +101,22 @@ class LogManager {
     this._defaultBranch = 'master';
 
     /**
-     * @type {Map<string, Branch>}
+     * @type {BranchList}
      * @private
      */
-    this._branches = new Map();
+    this._branchList = new BranchList();
 
     /**
-     * @type {Set<string>}
+     * @type {TagList}
      * @private
      */
-    this._tags = new Set();
+    this._tagList = new TagList();
 
     /**
-     * @type {string}
+     * @type {Branch|null}
      * @private
      */
-    this._currentBranch = '';
+    this._currentBranch = null;
   }
 
   /**
@@ -63,11 +136,7 @@ class LogManager {
    * @throws {Error}
    */
   addBranch(branch) {
-    if (this._branches.has(branch)) {
-      throw new Error('Branch already exists: ' + branch);
-    }
-
-    this._branches.set(branch, new Branch());
+    this._branchList.add(branch);
   }
 
   /**
@@ -75,17 +144,14 @@ class LogManager {
    * @throws {Error}
    */
   ensureBranch(branch) {
-    if (!this._branches.has(branch)) {
-      throw new Error('Branch not created: ' + branch);
-    }
+    this._branchList.get(branch);
   }
 
   /**
    * @param {string} branch
    */
   addCommit(branch) {
-    this.ensureBranch(branch);
-    this._branches.get(branch).incrementCommitCount();
+    this._branchList.get(branch).incrementCommitCount();
   }
 
   /**
@@ -93,9 +159,7 @@ class LogManager {
    * @throws {Error}
    */
   checkBranchForMerge(branch) {
-    this.ensureBranch(branch);
-
-    if (this._branches.get(branch).getCommitCount() === 0) {
+    if (this._branchList.get(branch).getCommitCount() === 0) {
       throw new Error('Branch should have at least 1 commit: ' + branch);
     }
   }
@@ -104,15 +168,14 @@ class LogManager {
    * @param {string} branch
    */
   setCurrentBranch(branch) {
-    this.ensureBranch(branch);
-    this._currentBranch = branch;
+    this._currentBranch = this._branchList.get(branch);
   }
 
   /**
    * @returns {string}
    */
   getCurrentBranch() {
-    return this._currentBranch;
+    return this._currentBranch.getName();
   }
 
   /**
@@ -121,17 +184,11 @@ class LogManager {
    * @throws {Error}
    */
   addTag(branch, tag) {
-    this.ensureBranch(branch);
-
-    if (this._branches.get(branch).getCommitCount() === 0) {
+    if (this._branchList.get(branch).getCommitCount() === 0) {
       throw new Error('Branch should have at least 1 commit: ' + branch);
     }
 
-    if (this._tags.has(tag)) {
-      throw new Error('Tag already exists: ' + tag);
-    }
-
-    this._tags.add(tag);
+    this._tagList.add(tag);
   }
 }
 
