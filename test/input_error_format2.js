@@ -1,5 +1,5 @@
 module.exports = [
-  // Branch already created
+  // Branch: Already created
   {
     input: `
       [log]
@@ -73,7 +73,24 @@ module.exports = [
     line: 4,
   },
 
-  // Merge: no commits on branch
+  // Merge: Branch not created
+  {
+    input: `
+      [log]
+      git merge foo
+    `,
+    line: 3,
+  },
+  {
+    input: `
+      [log]
+      git commit
+      git merge foo
+    `,
+    line: 4,
+  },
+
+  // Merge: No commits on branch
   {
     input: `
       [log]
@@ -95,7 +112,7 @@ module.exports = [
     line: 6,
   },
 
-  // Tag already exists
+  // Tag: Already exists
   {
     input: `
       [log]
@@ -114,5 +131,14 @@ module.exports = [
       git tag v1
     `,
     line: 6,
+  },
+
+  // Tag: No commits on branch
+  {
+    input: `
+      [log]
+      git tag v1
+    `,
+    line: 3,
   },
 ];
