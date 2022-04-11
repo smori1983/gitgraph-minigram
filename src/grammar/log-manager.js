@@ -283,14 +283,6 @@ class LogManager {
 
   /**
    * @param {string} branch
-   * @throws {Error}
-   */
-  ensureBranch(branch) {
-    this._branchList.get(branch);
-  }
-
-  /**
-   * @param {string} branch
    */
   addCommit(branch) {
     this._branchList.get(branch).incrementCommitCount();
