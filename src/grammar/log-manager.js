@@ -127,8 +127,8 @@ class LogManager {
   }
 
   optionParsed() {
-    this.addBranch(this._defaultBranch);
-    this.setCurrentBranch(this._defaultBranch);
+    this._addBranch(this._defaultBranch);
+    this._setCurrentBranch(this._defaultBranch);
   }
 
   /**
@@ -146,9 +146,9 @@ class LogManager {
    * @throws {Error}
    */
   gitBranch(branch) {
-    const from = this.getCurrentBranch();
+    const from = this._getCurrentBranch();
 
-    this.addBranch(branch);
+    this._addBranch(branch);
 
     return {
       type: 'branch:create',
@@ -163,10 +163,10 @@ class LogManager {
    * @throws {Error}
    */
   gitBranchAndCheckout(branch) {
-    const from = this.getCurrentBranch();
+    const from = this._getCurrentBranch();
 
-    this.addBranch(branch);
-    this.setCurrentBranch(branch);
+    this._addBranch(branch);
+    this._setCurrentBranch(branch);
 
     return {
       type: 'branch:create',
@@ -181,10 +181,10 @@ class LogManager {
    * @throws {Error}
    */
   gitBranchAndSwitch(branch) {
-    const from = this.getCurrentBranch();
+    const from = this._getCurrentBranch();
 
-    this.addBranch(branch);
-    this.setCurrentBranch(branch);
+    this._addBranch(branch);
+    this._setCurrentBranch(branch);
 
     return {
       type: 'branch:create',
@@ -199,7 +199,7 @@ class LogManager {
    * @throws {Error}
    */
   gitCheckout(branch) {
-    this.setCurrentBranch(branch);
+    this._setCurrentBranch(branch);
 
     return {
       type: 'branch:checkout',
@@ -213,7 +213,7 @@ class LogManager {
    * @throws {Error}
    */
   gitSwitch(branch) {
-    this.setCurrentBranch(branch);
+    this._setCurrentBranch(branch);
 
     return {
       type: 'branch:switch',
@@ -227,9 +227,9 @@ class LogManager {
    * @throws {Error}
    */
   gitCommit(message) {
-    const branch = this.getCurrentBranch();
+    const branch = this._getCurrentBranch();
 
-    this.addCommit(branch);
+    this._addCommit(branch);
 
     return {
       type: 'commit',
@@ -244,10 +244,10 @@ class LogManager {
    * @throws {Error}
    */
   gitMerge(branch) {
-    const into = this.getCurrentBranch();
+    const into = this._getCurrentBranch();
 
-    this.checkBranchForMerge(branch);
-    this.checkBranchForMerge(into);
+    this._checkBranchForMerge(branch);
+    this._checkBranchForMerge(into);
 
     return {
       type: 'merge',
@@ -262,9 +262,9 @@ class LogManager {
    * @throws {Error}
    */
   gitTag(tag) {
-    const branch = this.getCurrentBranch();
+    const branch = this._getCurrentBranch();
 
-    this.addTag(branch, tag);
+    this._addTag(branch, tag);
 
     return {
       type: 'tag',
@@ -276,23 +276,26 @@ class LogManager {
   /**
    * @param {string} branch
    * @throws {Error}
+   * @private
    */
-  addBranch(branch) {
+  _addBranch(branch) {
     this._branchList.add(branch);
   }
 
   /**
    * @param {string} branch
+   * @private
    */
-  addCommit(branch) {
+  _addCommit(branch) {
     this._branchList.get(branch).incrementCommitCount();
   }
 
   /**
    * @param {string} branch
    * @throws {Error}
+   * @private
    */
-  checkBranchForMerge(branch) {
+  _checkBranchForMerge(branch) {
     if (this._branchList.get(branch).getCommitCount() === 0) {
       throw new Error('Branch should have at least 1 commit: ' + branch);
     }
@@ -300,15 +303,17 @@ class LogManager {
 
   /**
    * @param {string} branch
+   * @private
    */
-  setCurrentBranch(branch) {
+  _setCurrentBranch(branch) {
     this._currentBranch = this._branchList.get(branch);
   }
 
   /**
    * @returns {string}
+   * @private
    */
-  getCurrentBranch() {
+  _getCurrentBranch() {
     return this._currentBranch.getName();
   }
 
@@ -316,8 +321,9 @@ class LogManager {
    * @param {string} branch
    * @param {string} tag
    * @throws {Error}
+   * @private
    */
-  addTag(branch, tag) {
+  _addTag(branch, tag) {
     if (this._branchList.get(branch).getCommitCount() === 0) {
       throw new Error('Branch should have at least 1 commit: ' + branch);
     }
