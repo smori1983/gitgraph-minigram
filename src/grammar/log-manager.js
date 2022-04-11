@@ -127,38 +127,175 @@ class LogManager {
   }
 
   optionParsed() {
-    this.addBranch(this._defaultBranch);
-    this.setCurrentBranch(this._defaultBranch);
+    this._addBranch(this._defaultBranch);
+    this._setCurrentBranch(this._defaultBranch);
+  }
+
+  /**
+   * @returns {Object}
+   */
+  gitEmptyLine() {
+    return {
+      type: 'empty_line',
+    };
+  }
+
+  /**
+   * @param {string} branch
+   * @returns {Object}
+   * @throws {Error}
+   */
+  gitBranch(branch) {
+    const from = this._getCurrentBranch();
+
+    this._addBranch(branch);
+
+    return {
+      type: 'branch:create',
+      branch: branch,
+      from: from,
+    };
+  }
+
+  /**
+   * @param {string} branch
+   * @returns {Object}
+   * @throws {Error}
+   */
+  gitBranchAndCheckout(branch) {
+    const from = this._getCurrentBranch();
+
+    this._addBranch(branch);
+    this._setCurrentBranch(branch);
+
+    return {
+      type: 'branch:create',
+      branch: branch,
+      from: from,
+    };
+  }
+
+  /**
+   * @param {string} branch
+   * @returns {Object}
+   * @throws {Error}
+   */
+  gitBranchAndSwitch(branch) {
+    const from = this._getCurrentBranch();
+
+    this._addBranch(branch);
+    this._setCurrentBranch(branch);
+
+    return {
+      type: 'branch:create',
+      branch: branch,
+      from: from,
+    };
+  }
+
+  /**
+   * @param {string} branch
+   * @returns {Object}
+   * @throws {Error}
+   */
+  gitCheckout(branch) {
+    this._setCurrentBranch(branch);
+
+    return {
+      type: 'branch:checkout',
+      branch: branch,
+    };
+  }
+
+  /**
+   * @param {string} branch
+   * @returns {Object}
+   * @throws {Error}
+   */
+  gitSwitch(branch) {
+    this._setCurrentBranch(branch);
+
+    return {
+      type: 'branch:switch',
+      branch: branch,
+    };
+  }
+
+  /**
+   * @param {string} message
+   * @return {Object}
+   * @throws {Error}
+   */
+  gitCommit(message) {
+    const branch = this._getCurrentBranch();
+
+    this._addCommit(branch);
+
+    return {
+      type: 'commit',
+      branch: branch,
+      message: message,
+    };
+  }
+
+  /**
+   * @param {string} branch
+   * @return {Object}
+   * @throws {Error}
+   */
+  gitMerge(branch) {
+    const into = this._getCurrentBranch();
+
+    this._checkBranchForMerge(branch);
+    this._checkBranchForMerge(into);
+
+    return {
+      type: 'merge',
+      branch: branch,
+      into: into,
+    };
+  }
+
+  /**
+   * @param {string} tag
+   * @return {Object}
+   * @throws {Error}
+   */
+  gitTag(tag) {
+    const branch = this._getCurrentBranch();
+
+    this._addTag(branch, tag);
+
+    return {
+      type: 'tag',
+      branch: branch,
+      tag: tag,
+    };
   }
 
   /**
    * @param {string} branch
    * @throws {Error}
+   * @private
    */
-  addBranch(branch) {
+  _addBranch(branch) {
     this._branchList.add(branch);
   }
 
   /**
    * @param {string} branch
-   * @throws {Error}
+   * @private
    */
-  ensureBranch(branch) {
-    this._branchList.get(branch);
-  }
-
-  /**
-   * @param {string} branch
-   */
-  addCommit(branch) {
+  _addCommit(branch) {
     this._branchList.get(branch).incrementCommitCount();
   }
 
   /**
    * @param {string} branch
    * @throws {Error}
+   * @private
    */
-  checkBranchForMerge(branch) {
+  _checkBranchForMerge(branch) {
     if (this._branchList.get(branch).getCommitCount() === 0) {
       throw new Error('Branch should have at least 1 commit: ' + branch);
     }
@@ -166,15 +303,17 @@ class LogManager {
 
   /**
    * @param {string} branch
+   * @private
    */
-  setCurrentBranch(branch) {
+  _setCurrentBranch(branch) {
     this._currentBranch = this._branchList.get(branch);
   }
 
   /**
    * @returns {string}
+   * @private
    */
-  getCurrentBranch() {
+  _getCurrentBranch() {
     return this._currentBranch.getName();
   }
 
@@ -182,8 +321,9 @@ class LogManager {
    * @param {string} branch
    * @param {string} tag
    * @throws {Error}
+   * @private
    */
-  addTag(branch, tag) {
+  _addTag(branch, tag) {
     if (this._branchList.get(branch).getCommitCount() === 0) {
       throw new Error('Branch should have at least 1 commit: ' + branch);
     }

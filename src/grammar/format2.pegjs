@@ -66,173 +66,95 @@ log_line
 git_empty_line
   = (_ newline / __)
   {
-    return {
-      type: 'empty_line',
-    };
+    return logManager.gitEmptyLine();
   }
 
 git_branch
-  = _ 'git' __ 'branch' __ b:branch_add _ newline
+  = _ 'git' __ 'branch' __ b:branch_name _ newline
   {
-    const from = logManager.getCurrentBranch();
-
-    return {
-      type: 'branch:create',
-      branch: b,
-      from: from,
-    };
+    try {
+      return logManager.gitBranch(b);
+    } catch (e) {
+      error(e.message);
+    }
   }
 
 git_branch_and_checkout
-  = _ 'git' __ 'checkout' __ '-b' __ b:branch_add _ newline
+  = _ 'git' __ 'checkout' __ '-b' __ b:branch_name _ newline
   {
-    const from = logManager.getCurrentBranch();
-    logManager.setCurrentBranch(b);
-
-    return {
-      type: 'branch:create',
-      branch: b,
-      from: from,
-    };
+    try {
+      return logManager.gitBranchAndCheckout(b);
+    } catch (e) {
+      error(e.message);
+    }
   }
 
 git_branch_and_switch
-  = _ 'git' __ 'switch' __ '-c' __ b:branch_add _ newline
+  = _ 'git' __ 'switch' __ '-c' __ b:branch_name _ newline
   {
-    const from = logManager.getCurrentBranch();
-    logManager.setCurrentBranch(b);
-
-    return {
-      type: 'branch:create',
-      branch: b,
-      from: from,
+    try {
+      return logManager.gitBranchAndSwitch(b);
+    } catch (e) {
+      error(e.message);
     }
   }
 
 git_checkout
-  = _ 'git' __ 'checkout' __ b:branch_get _ newline
+  = _ 'git' __ 'checkout' __ b:branch_name _ newline
   {
-    logManager.setCurrentBranch(b);
-
-    return {
-      type: 'branch:checkout',
-      branch: b,
-    };
+    try {
+      return logManager.gitCheckout(b);
+    } catch (e) {
+      error(e.message);
+    }
   }
 
 git_switch
-  = _ 'git' __ 'switch' __ b:branch_get _ newline
+  = _ 'git' __ 'switch' __ b:branch_name _ newline
   {
-    logManager.setCurrentBranch(b);
-
-    return {
-      type: 'branch:switch',
-      branch: b,
+    try {
+      return logManager.gitSwitch(b);
+    } catch (e) {
+      error(e.message);
     }
   }
 
 git_commit
   = _ 'git' __ 'commit' __ '-m' __ m:(text_single_quote / text_double_quote) _ newline
   {
-    const branch = logManager.getCurrentBranch();
-    logManager.addCommit(branch);
-
-    return {
-      type: 'commit',
-      branch: branch,
-      message: m,
-    };
+    try {
+      return logManager.gitCommit(m);
+    } catch (e) {
+      error(e.message);
+    }
   }
   / _ 'git' __ 'commit' _ newline
   {
-    const branch = logManager.getCurrentBranch();
-    logManager.addCommit(branch);
-
-    return {
-      type: 'commit',
-      branch: branch,
-      message: '',
-    };
+    try {
+      return logManager.gitCommit('');
+    } catch (e) {
+      error(e.message);
+    }
   }
 
 git_merge
-  = _ 'git' __ 'merge' __ b:branch_merge _ newline
+  = _ 'git' __ 'merge' __ b:branch_name _ newline
   {
-    const into = logManager.getCurrentBranch();
-
     try {
-      logManager.checkBranchForMerge(into);
+      return logManager.gitMerge(b);
     } catch (e) {
       error(e.message);
     }
-
-    return {
-      type: 'merge',
-      branch: b,
-      into: into,
-    };
   }
 
 git_tag
-  = _ 'git' __ 'tag' __ t:tag_add _ newline
-  {
-    const branch = logManager.getCurrentBranch();
-
-    return {
-      type: 'tag',
-      branch: branch,
-      tag: t,
-    };
-  }
-
-branch_add
-  = b:branch_name
+  = _ 'git' __ 'tag' __ t:tag_name _ newline
   {
     try {
-      logManager.addBranch(b);
+      return logManager.gitTag(t);
     } catch (e) {
       error(e.message);
     }
-
-    return b;
-  }
-
-branch_get
-  = b:branch_name
-  {
-    try {
-      logManager.ensureBranch(b);
-    } catch (e) {
-      error(e.message);
-    }
-
-    return b;
-  }
-
-branch_merge
-  = b:branch_name
-  {
-    try {
-      logManager.checkBranchForMerge(b);
-    } catch (e) {
-      error(e.message);
-    }
-
-    return b;
-  }
-
-tag_add
-  = t:tag_name
-  {
-    const branch = logManager.getCurrentBranch();
-
-    try {
-      logManager.addTag(branch, t);
-    } catch (e) {
-      error(e.message);
-    }
-
-    return t;
   }
 
 branch_name 'branch name'
