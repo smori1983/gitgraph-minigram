@@ -73,6 +73,23 @@ module.exports = [
     line: 4,
   },
 
+  // Merge: branch not created
+  {
+    input: `
+      [log]
+      git merge foo
+    `,
+    line: 3,
+  },
+  {
+    input: `
+      [log]
+      git commit
+      git merge foo
+    `,
+    line: 4,
+  },
+
   // Merge: no commits on branch
   {
     input: `
