@@ -46,9 +46,9 @@ git tag <tag>
 
 ```js
 import { createGitgraph } from '@gitgraph/js';
-import { Format1Parser, GitLogger } from 'gitgraph-minigram';
+import { Format2Parser, GitLogger } from 'gitgraph-minigram';
 
-const parser = new Format1Parser();
+const parser = new Format2Parser();
 const logger = new GitLogger();
 
 const input = ...;
@@ -58,8 +58,7 @@ if (parseResult.parsed()) {
   const container = ...; // HTML element to draw git commit graph.
   const graph = createGitgraph(container);
 
-  const parseData = parseResult.getParseData();
-  logger.create(graph, parseData);
+  logger.create(graph, parseResult.getParseData());
 } else {
   const e = parseResult.getError(); // pegjs syntax error object.
 }
