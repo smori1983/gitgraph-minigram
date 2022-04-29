@@ -148,6 +148,7 @@ class LogManager {
   gitBranch(branch) {
     const from = this._getCurrentBranch();
 
+    this._checkBranchForStartPoint(from);
     this._addBranch(branch);
 
     return {
@@ -165,6 +166,7 @@ class LogManager {
   gitBranchAndCheckout(branch) {
     const from = this._getCurrentBranch();
 
+    this._checkBranchForStartPoint(from);
     this._addBranch(branch);
     this._setCurrentBranch(branch);
 
@@ -183,6 +185,7 @@ class LogManager {
   gitBranchAndSwitch(branch) {
     const from = this._getCurrentBranch();
 
+    this._checkBranchForStartPoint(from);
     this._addBranch(branch);
     this._setCurrentBranch(branch);
 
@@ -288,6 +291,17 @@ class LogManager {
    */
   _addCommit(branch) {
     this._branchList.get(branch).incrementCommitCount();
+  }
+
+  /**
+   * @param {string} branch
+   * @throws {Error}
+   * @private
+   */
+  _checkBranchForStartPoint(branch) {
+    if (this._branchList.get(branch).getCommitCount() === 0) {
+      throw new Error('Branch should have at least 1 commit: ' + branch);
+    }
   }
 
   /**

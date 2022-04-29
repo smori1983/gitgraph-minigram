@@ -1,76 +1,145 @@
 module.exports = [
-  // Branch: Already created
+  // Create branch: No commits on start point branch
   {
     input: `
       [log]
       git branch foo
-      git branch foo
     `,
-    line: 4,
+    line: 3,
   },
   {
     input: `
       [log]
+      git commit
       git branch foo
-      git checkout -b foo
+      git checkout foo
+      git branch bar
     `,
-    line: 4,
-  },
-  {
-    input: `
-      [log]
-      git branch foo
-      git switch -c foo
-    `,
-    line: 4,
+    line: 6,
   },
   {
     input: `
       [log]
       git checkout -b foo
+    `,
+    line: 3,
+  },
+  {
+    input: `
+      [log]
+      git commit
+      git checkout -b foo
+      git checkout -b bar
+    `,
+    line: 5,
+  },
+  {
+    input: `
+      [log]
+      git switch -c foo
+    `,
+    line: 3,
+  },
+  {
+    input: `
+      [log]
+      git commit
+      git switch -c foo
+      git switch -c bar
+    `,
+    line: 5,
+  },
+
+  // Create branch: Already created
+  {
+    input: `
+      [log]
+      git commit
+      git branch foo
+      git commit
       git branch foo
     `,
-    line: 4,
+    line: 6,
   },
   {
     input: `
       [log]
-      git checkout -b foo
+      git commit
+      git branch foo
+      git commit
       git checkout -b foo
     `,
-    line: 4,
+    line: 6,
   },
   {
     input: `
       [log]
-      git checkout -b foo
+      git commit
+      git branch foo
+      git commit
       git switch -c foo
     `,
-    line: 4,
+    line: 6,
   },
   {
     input: `
       [log]
-      git switch -c foo
+      git commit
+      git checkout -b foo
+      git commit
       git branch foo
     `,
-    line: 4,
+    line: 6,
   },
   {
     input: `
       [log]
-      git switch -c foo
+      git commit
+      git checkout -b foo
+      git commit
       git checkout -b foo
     `,
-    line: 4,
+    line: 6,
   },
   {
     input: `
       [log]
-      git switch -c foo
+      git commit
+      git checkout -b foo
+      git commit
       git switch -c foo
     `,
-    line: 4,
+    line: 6,
+  },
+  {
+    input: `
+      [log]
+      git commit
+      git switch -c foo
+      git commit
+      git branch foo
+    `,
+    line: 6,
+  },
+  {
+    input: `
+      [log]
+      git commit
+      git switch -c foo
+      git commit
+      git checkout -b foo
+    `,
+    line: 6,
+  },
+  {
+    input: `
+      [log]
+      git commit
+      git switch -c foo
+      git commit
+      git switch -c foo
+    `,
+    line: 6,
   },
 
   // Merge: Branch not created
@@ -104,12 +173,13 @@ module.exports = [
   {
     input: `
       [log]
+      git commit
       git switch -c foo
       git commit
-      git checkout master
+      git checkout -b bar
       git merge foo
     `,
-    line: 6,
+    line: 7,
   },
 
   // Tag: Already exists
