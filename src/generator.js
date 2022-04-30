@@ -4,7 +4,7 @@
  * @typedef {import('./parse-data')} ParseData
  */
 
-class GitLogger {
+class Generator {
   constructor() {
     /**
      * @type {Map<string, BranchUserApi>}
@@ -17,7 +17,7 @@ class GitLogger {
    * @param {GitgraphUserApi} api
    * @param {ParseData} parseData
    */
-  create(api, parseData) {
+  generate(api, parseData) {
     this._registerBranch(api.branch(parseData.getDefaultBranch()));
 
     parseData.getActions().forEach((action) => {
@@ -100,4 +100,4 @@ class GitLogger {
   }
 }
 
-module.exports = GitLogger;
+module.exports = Generator;
