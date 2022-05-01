@@ -12,14 +12,14 @@
   "dependencies": {
     "@gitgraph/core": "^1.5.0",
     "@gitgraph/js": "^1.4.0",
-    "@types/pegjs": "^0.10.3"
+    "@types/pegjs": "^0.10.3",
+    "pegjs": "^0.10.0"
   },
   "devDependencies": {
     "@types/mocha": "^9.1.0",
     "mocha": "^9.2.2",
     "mocha-testdata": "^1.2.0",
-    "nyc": "^15.1.0",
-    "pegjs": "^0.10.0"
+    "nyc": "^15.1.0"
   },
   "files": [
     "src/**",
