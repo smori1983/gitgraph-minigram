@@ -1,4 +1,6 @@
+const GrammarError = require('pegjs').GrammarError;
 const format1 = require('./grammar/format1');
+const LogManager = require('./grammar/log-manager');
 const ParseResult = require('./parse-result');
 const ParseData = require('./parse-data');
 
@@ -9,10 +11,16 @@ class Format1Parser {
    */
   parse(input) {
     try {
+      const logManager = new LogManager();
+
       const format1Parsed = format1.parse(input);
 
       const defaultBranch = this._resolveDefaultBranch(format1Parsed.option);
-      const actions = this._prepareActions(format1Parsed.log, defaultBranch);
+
+      logManager.setDefaultBranch(defaultBranch);
+      logManager.optionParsed();
+
+      const actions = this._prepareActions(format1Parsed.log, logManager);
 
       const parseData = new ParseData({
         defaultBranch: defaultBranch,
@@ -33,7 +41,7 @@ class Format1Parser {
   _resolveDefaultBranch(options) {
     for (let i = 0; i < options.length; i++) {
       if (options[i].name === 'defaultBranch') {
-        return options[i].value;
+        return options[i].value.text;
       }
     }
 
@@ -42,72 +50,76 @@ class Format1Parser {
 
   /**
    * @param {Object[]} logs
-   * @param {string} currentBranch
+   * @param {LogManager} logManager
    * @returns {Object[]}
    * @private
    */
-  _prepareActions(logs, currentBranch) {
+  _prepareActions(logs, logManager) {
     const result = [];
 
     logs.forEach((log) => {
       if (log.type === 'branch:create') {
-        result.push({
-          type: 'branch:create',
-          branch: log.branch,
-          from: currentBranch,
-        });
+        try {
+          result.push(logManager.gitBranch(log.branch.text));
+        } catch (e) {
+          throw new GrammarError(e.message, log._location);
+        }
       }
 
       if (log.type === 'branch:checkout') {
-        currentBranch = log.branch;
+        try {
+          logManager.gitCheckout(log.branch.text);
+        } catch (e) {
+          throw new GrammarError(e.message, log._location);
+        }
       }
 
       if (log.type === 'branch:switch') {
-        currentBranch = log.branch;
+        try {
+          logManager.gitSwitch(log.branch.text);
+        } catch (e) {
+          throw new GrammarError(e.message, log._location);
+        }
       }
 
       if (log.type === 'branch:create:checkout') {
-        result.push({
-          type: 'branch:create',
-          branch: log.branch,
-          from: currentBranch,
-        });
-
-        currentBranch = log.branch;
+        try {
+          result.push(logManager.gitBranchAndCheckout(log.branch.text));
+        } catch (e) {
+          throw new GrammarError(e.message, log._location);
+        }
       }
 
       if (log.type === 'branch:create:switch') {
-        result.push({
-          type: 'branch:create',
-          branch: log.branch,
-          from: currentBranch,
-        });
-
-        currentBranch = log.branch;
+        try {
+          result.push(logManager.gitBranchAndSwitch(log.branch.text));
+        } catch (e) {
+          throw new GrammarError(e.message, log._location);
+        }
       }
 
       if (log.type === 'commit') {
-        result.push({
-          type: 'commit',
-          branch: currentBranch,
-          message: log.message,
-        });
+        try {
+          result.push(logManager.gitCommit(log.message ? log.message.text : ''));
+        } catch (e) {
+          throw new GrammarError(e.message, log._location);
+        }
       }
 
       if (log.type === 'merge') {
-        result.push({
-          type: 'merge',
-          branch: log.branch,
-          into: currentBranch,
-        });
+        try {
+          result.push(logManager.gitMerge(log.branch.text));
+        } catch (e) {
+          throw new GrammarError(e.message, log._location);
+        }
       }
 
       if (log.type === 'tag') {
-        result.push({
-          type: 'tag',
-          branch: currentBranch,
-          tag: log.tag,
-        });
+        try {
+          result.push(logManager.gitTag(log.tag.text));
+        } catch (e) {
+          throw new GrammarError(e.message, log._location);
+        }
       }
     });
 

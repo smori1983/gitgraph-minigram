@@ -1,12 +1,13 @@
 /**
  * @typedef {import('./parse-data')} ParseData
+ * @typedef {import('pegjs').GrammarError} GrammarError
  * @typedef {import('pegjs').PEG.SyntaxError} PegSyntaxError
  */
 
 class ParseResult {
   /**
    * @param {ParseData|null} parseData
-   * @param {PegSyntaxError|null} error
+   * @param {GrammarError|PegSyntaxError|null} error
    */
   constructor(parseData, error) {
     /**
@@ -16,7 +17,7 @@ class ParseResult {
     this._parseData = parseData;
 
     /**
-     * @type {PegSyntaxError|null}
+     * @type {GrammarError|PegSyntaxError|null}
      * @private
      */
     this._error = error;
@@ -42,7 +43,7 @@ class ParseResult {
   }
 
   /**
-   * @returns {PegSyntaxError}
+   * @returns {GrammarError|PegSyntaxError}
    * @throws {Error}
    */
   getError() {

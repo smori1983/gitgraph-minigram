@@ -28,9 +28,9 @@ describe('format2-parser', () => {
   });
 
   describe('error pattern', () => {
-    const patternsCommon = require('./input_error_common');
-    const patternsFormat2 = require('./input_error_format2');
-    const patterns = [].concat(patternsCommon, patternsFormat2);
+    const patternsSyntax = require('./input_error_syntax');
+    const patternsSemantics = require('./input_error_semantics');
+    const patterns = [].concat(patternsSyntax, patternsSemantics);
 
     given(patterns).it('should not parse', (arg) => {
       const parser = new Parser();

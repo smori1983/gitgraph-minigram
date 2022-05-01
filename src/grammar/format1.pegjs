@@ -1,3 +1,10 @@
+{
+  const minigram_location = () => {
+    const loc = location();
+    return loc;
+  };
+}
+
 start
   = (_ newline)*
     o:segment_option?
@@ -61,6 +68,7 @@ git_empty_line
   {
     return {
       type: 'empty_line',
+      _location: minigram_location(),
     };
   }
 
@@ -70,6 +78,7 @@ git_branch
     return {
       type: 'branch:create',
       branch: b,
+      _location: minigram_location(),
     };
   }
 
@@ -79,6 +88,7 @@ git_branch_and_checkout
     return {
       type: 'branch:create:checkout',
       branch: b,
+      _location: minigram_location(),
     };
   }
 
@@ -88,6 +98,7 @@ git_branch_and_switch
     return {
       type: 'branch:create:switch',
       branch: b,
+      _location: minigram_location(),
     }
   }
 
@@ -97,6 +108,7 @@ git_checkout
     return {
       type: 'branch:checkout',
       branch: b,
+      _location: minigram_location(),
     };
   }
 
@@ -106,6 +118,7 @@ git_switch
     return {
       type: 'branch:switch',
       branch: b,
+      _location: minigram_location(),
     }
   }
 
@@ -115,13 +128,15 @@ git_commit
     return {
       type: 'commit',
       message: m,
+      _location: minigram_location(),
     };
   }
   / _ 'git' __ 'commit' _ newline
   {
     return {
       type: 'commit',
-      message: '',
+      message: null,
+      _location: minigram_location(),
     };
   }
 
@@ -131,6 +146,7 @@ git_merge
     return {
       type: 'merge',
       branch: b,
+      _location: minigram_location(),
     };
   }
 
@@ -140,19 +156,35 @@ git_tag
     return {
       type: 'tag',
       tag: t,
+      _location: minigram_location(),
     };
   }
 
 branch_name 'branch name'
-  = $([^ \t\r\n\-][^ \t\r\n]*)
+  = b:$([^ \t\r\n\-][^ \t\r\n]*)
+  {
+    return {
+      text: b,
+      _location: minigram_location(),
+    };
+  }
 
 tag_name 'tag name'
-  = $([^ \t\r\n\-][^ \t\r\n]*)
+  = t:$([^ \t\r\n\-][^ \t\r\n]*)
+  {
+    return {
+      text: t,
+      _location: minigram_location(),
+    };
+  }
 
 text_single_quote
   = single_quote chars:text_single_quote_char* single_quote
   {
-    return chars.join('');
+    return {
+      text: chars.join(''),
+      _location: minigram_location(),
+    };
   }
 
 text_single_quote_char 'text'
@@ -164,7 +196,10 @@ text_single_quote_char 'text'
 text_double_quote
   = double_quote chars:text_double_quote_char* double_quote
   {
-    return chars.join('');
+    return {
+      text: chars.join(''),
+      _location: minigram_location(),
+    };
   }
 
 text_double_quote_char 'text'
