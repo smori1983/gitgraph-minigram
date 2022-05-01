@@ -1,4 +1,5 @@
 module.exports = [
+  // General(no concrete input)
   {
     input: ``,
     line: 1,
@@ -7,12 +8,16 @@ module.exports = [
     input: `   `,
     line: 1,
   },
+
+  // General(unknown segment)
   {
     input: `
       [foo]
     `,
     line: 2,
   },
+
+  // General(option segment)
   {
     input: `
       [option]
@@ -20,6 +25,8 @@ module.exports = [
     `,
     line: 3,
   },
+
+  // General(log segment)
   {
     input: `
       [option]
@@ -33,6 +40,8 @@ module.exports = [
     `,
     line: 3,
   },
+
+  // Git command(general)
   {
     input: `
       [log]
@@ -40,6 +49,15 @@ module.exports = [
     `,
     line: 3,
   },
+  {
+    input: `
+      [log]
+      git foo
+    `,
+    line: 3,
+  },
+
+  // Git command(commit)
   {
     input: `
       [log]
@@ -89,6 +107,8 @@ module.exports = [
     `,
     line: 3,
   },
+
+  // Git command(checkout)
   {
     input: `
       [log]
@@ -124,6 +144,8 @@ module.exports = [
     `,
     line: 3,
   },
+
+  // Git command(switch)
   {
     input: `
       [log]
@@ -159,6 +181,8 @@ module.exports = [
     `,
     line: 3,
   },
+
+  // Git command(merge)
   {
     input: `
       [log]
@@ -173,6 +197,8 @@ module.exports = [
     `,
     line: 3,
   },
+
+  // Git command(tag)
   {
     input: `
       [log]
