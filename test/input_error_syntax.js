@@ -1,24 +1,28 @@
 module.exports = [
-  // General(no concrete input)
+  // general - no concrete input
   {
+    case: 'general - no concrete input - 01',
     input: ``,
     line: 1,
   },
   {
+    case: 'general - no concrete input - 02',
     input: `   `,
     line: 1,
   },
 
-  // General(unknown segment)
+  // general - unknown segment
   {
+    case: 'general - unknown segment - 01',
     input: `
       [foo]
     `,
     line: 2,
   },
 
-  // General(option segment)
+  // general - option segment
   {
+    case: 'general - option segment - 01',
     input: `
       [option]
       foo: bar
@@ -26,14 +30,16 @@ module.exports = [
     line: 3,
   },
 
-  // General(log segment)
+  // general - log segment
   {
+    case: 'general - log segment - 01',
     input: `
       [option]
     `,
     line: 3,
   },
   {
+    case: 'general - log segment - 02',
     input: `
       [log]
       [option]
@@ -41,8 +47,9 @@ module.exports = [
     line: 3,
   },
 
-  // Git command(general)
+  // git command - general
   {
+    case: 'git command - general - 01',
     input: `
       [log]
       git
@@ -50,6 +57,7 @@ module.exports = [
     line: 3,
   },
   {
+    case: 'git command - general - 02',
     input: `
       [log]
       git foo
@@ -57,8 +65,9 @@ module.exports = [
     line: 3,
   },
 
-  // Git command(commit)
+  // git command - commit
   {
+    case: 'git command - commit - 01',
     input: `
       [log]
       git commit -m
@@ -66,6 +75,7 @@ module.exports = [
     line: 3,
   },
   {
+    case: 'git command - commit - 02',
     input: `
       [log]
       git commit -m foo
@@ -73,6 +83,7 @@ module.exports = [
     line: 3,
   },
   {
+    case: 'git command - commit - 03',
     input: `
       [log]
       git commit -m 'foo' 'bar'
@@ -80,6 +91,7 @@ module.exports = [
     line: 3,
   },
   {
+    case: 'git command - commit - 04',
     input: `
       [log]
       git commit -m 'foo
@@ -87,6 +99,7 @@ module.exports = [
     line: 3,
   },
   {
+    case: 'git command - commit - 05',
     input: `
       [log]
       git commit -m 'foo"
@@ -94,6 +107,7 @@ module.exports = [
     line: 3,
   },
   {
+    case: 'git command - commit - 06',
     input: `
       [log]
       git commit -m "foo
@@ -101,6 +115,7 @@ module.exports = [
     line: 3,
   },
   {
+    case: 'git command - commit - 07',
     input: `
       [log]
       git commit -m "foo'
@@ -108,8 +123,9 @@ module.exports = [
     line: 3,
   },
 
-  // Git command(checkout)
+  // git command - checkout
   {
+    case: 'git command - checkout - 01',
     input: `
       [log]
       git checkout
@@ -117,6 +133,7 @@ module.exports = [
     line: 3,
   },
   {
+    case: 'git command - checkout - 02',
     input: `
       [log]
       git checkout foo bar
@@ -124,6 +141,7 @@ module.exports = [
     line: 3,
   },
   {
+    case: 'git command - checkout - 03',
     input: `
       [log]
       git checkout -z foo
@@ -131,6 +149,7 @@ module.exports = [
     line: 3,
   },
   {
+    case: 'git command - checkout - 04',
     input: `
       [log]
       git checkout -b
@@ -138,6 +157,7 @@ module.exports = [
     line: 3,
   },
   {
+    case: 'git command - checkout - 05',
     input: `
       [log]
       git checkout -b foo bar
@@ -145,8 +165,9 @@ module.exports = [
     line: 3,
   },
 
-  // Git command(switch)
+  // git command - switch
   {
+    case: 'git command - switch - 01',
     input: `
       [log]
       git switch
@@ -154,6 +175,7 @@ module.exports = [
     line: 3,
   },
   {
+    case: 'git command - switch - 02',
     input: `
       [log]
       git switch foo bar
@@ -161,6 +183,7 @@ module.exports = [
     line: 3,
   },
   {
+    case: 'git command - switch - 03',
     input: `
       [log]
       git switch -z foo
@@ -168,6 +191,7 @@ module.exports = [
     line: 3,
   },
   {
+    case: 'git command - switch - 04',
     input: `
       [log]
       git switch -c
@@ -175,6 +199,7 @@ module.exports = [
     line: 3,
   },
   {
+    case: 'git command - switch - 05',
     input: `
       [log]
       git switch -c foo bar
@@ -182,8 +207,9 @@ module.exports = [
     line: 3,
   },
 
-  // Git command(merge)
+  // git command - merge
   {
+    case: 'git command - merge - 01',
     input: `
       [log]
       git merge
@@ -191,6 +217,7 @@ module.exports = [
     line: 3,
   },
   {
+    case: 'git command - merge - 02',
     input: `
       [log]
       git merge foo bar
@@ -198,8 +225,9 @@ module.exports = [
     line: 3,
   },
 
-  // Git command(tag)
+  // git command - tag
   {
+    case: 'git command - tag - 01',
     input: `
       [log]
       git tag
@@ -207,6 +235,7 @@ module.exports = [
     line: 3,
   },
   {
+    case: 'git command - tag - 02',
     input: `
       [log]
       git tag -c
@@ -214,6 +243,7 @@ module.exports = [
     line: 3,
   },
   {
+    case: 'git command - tag - 03',
     input: `
       [log]
       git tag v1 v2

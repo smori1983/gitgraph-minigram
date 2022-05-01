@@ -1,6 +1,7 @@
 module.exports = [
-  // Create branch: No commits on start point branch
+  // create branch - no commits on start point branch
   {
+    case: 'create branch - no commits on start point branch - 01',
     input: `
       [log]
       git branch foo
@@ -8,6 +9,7 @@ module.exports = [
     line: 3,
   },
   {
+    case: 'create branch - no commits on start point branch - 02',
     input: `
       [log]
       git commit
@@ -18,6 +20,7 @@ module.exports = [
     line: 6,
   },
   {
+    case: 'create branch - no commits on start point branch - 03',
     input: `
       [log]
       git checkout -b foo
@@ -25,6 +28,7 @@ module.exports = [
     line: 3,
   },
   {
+    case: 'create branch - no commits on start point branch - 04',
     input: `
       [log]
       git commit
@@ -34,6 +38,7 @@ module.exports = [
     line: 5,
   },
   {
+    case: 'create branch - no commits on start point branch - 05',
     input: `
       [log]
       git switch -c foo
@@ -41,6 +46,7 @@ module.exports = [
     line: 3,
   },
   {
+    case: 'create branch - no commits on start point branch - 06',
     input: `
       [log]
       git commit
@@ -50,8 +56,9 @@ module.exports = [
     line: 5,
   },
 
-  // Create branch: Already created
+  // create branch - already created
   {
+    case: 'create branch - already created - 01',
     input: `
       [log]
       git commit
@@ -62,6 +69,7 @@ module.exports = [
     line: 6,
   },
   {
+    case: 'create branch - already created - 02',
     input: `
       [log]
       git commit
@@ -72,6 +80,7 @@ module.exports = [
     line: 6,
   },
   {
+    case: 'create branch - already created - 03',
     input: `
       [log]
       git commit
@@ -82,6 +91,7 @@ module.exports = [
     line: 6,
   },
   {
+    case: 'create branch - already created - 04',
     input: `
       [log]
       git commit
@@ -92,6 +102,7 @@ module.exports = [
     line: 6,
   },
   {
+    case: 'create branch - already created - 05',
     input: `
       [log]
       git commit
@@ -102,6 +113,7 @@ module.exports = [
     line: 6,
   },
   {
+    case: 'create branch - already created - 06',
     input: `
       [log]
       git commit
@@ -112,6 +124,7 @@ module.exports = [
     line: 6,
   },
   {
+    case: 'create branch - already created - 07',
     input: `
       [log]
       git commit
@@ -122,6 +135,7 @@ module.exports = [
     line: 6,
   },
   {
+    case: 'create branch - already created - 08',
     input: `
       [log]
       git commit
@@ -132,6 +146,7 @@ module.exports = [
     line: 6,
   },
   {
+    case: 'create branch - already created - 09',
     input: `
       [log]
       git commit
@@ -142,8 +157,9 @@ module.exports = [
     line: 6,
   },
 
-  // Merge: Branch not created
+  // merge - branch not created
   {
+    case: 'merge - branch not created - 01',
     input: `
       [log]
       git merge foo
@@ -151,6 +167,7 @@ module.exports = [
     line: 3,
   },
   {
+    case: 'merge - branch not created - 02',
     input: `
       [log]
       git commit
@@ -159,8 +176,9 @@ module.exports = [
     line: 4,
   },
 
-  // Merge: No commits on branch
+  // merge - no commits on branch
   {
+    case: 'merge - no commits on branch - 01',
     input: `
       [log]
       git commit
@@ -171,6 +189,7 @@ module.exports = [
     line: 6,
   },
   {
+    case: 'merge - no commits on branch - 02',
     input: `
       [log]
       git commit
@@ -182,8 +201,9 @@ module.exports = [
     line: 7,
   },
 
-  // Tag: Already exists
+  // tag - already exists
   {
+    case: 'tag - already exists - 01',
     input: `
       [log]
       git commit
@@ -193,6 +213,7 @@ module.exports = [
     line: 5,
   },
   {
+    case: 'tag - already exists - 02',
     input: `
       [log]
       git commit
@@ -203,12 +224,23 @@ module.exports = [
     line: 6,
   },
 
-  // Tag: No commits on branch
+  // tag - no commits on branch
   {
+    case: 'tag - no commits on branch - 01',
     input: `
       [log]
       git tag v1
     `,
     line: 3,
+  },
+  {
+    case: 'tag - no commits on branch - 02',
+    input: `
+      [log]
+      git commit
+      git switch -c foo
+      git tag v1
+    `,
+    line: 5,
   },
 ];
