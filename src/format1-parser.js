@@ -33,7 +33,7 @@ class Format1Parser {
   _resolveDefaultBranch(options) {
     for (let i = 0; i < options.length; i++) {
       if (options[i].name === 'defaultBranch') {
-        return options[i].value;
+        return options[i].value.text;
       }
     }
 
@@ -53,51 +53,51 @@ class Format1Parser {
       if (log.type === 'branch:create') {
         result.push({
           type: 'branch:create',
-          branch: log.branch,
+          branch: log.branch.text,
           from: currentBranch,
         });
       }
 
       if (log.type === 'branch:checkout') {
-        currentBranch = log.branch;
+        currentBranch = log.branch.text;
       }
 
       if (log.type === 'branch:switch') {
-        currentBranch = log.branch;
+        currentBranch = log.branch.text;
       }
 
       if (log.type === 'branch:create:checkout') {
         result.push({
           type: 'branch:create',
-          branch: log.branch,
+          branch: log.branch.text,
           from: currentBranch,
         });
 
-        currentBranch = log.branch;
+        currentBranch = log.branch.text;
       }
 
       if (log.type === 'branch:create:switch') {
         result.push({
           type: 'branch:create',
-          branch: log.branch,
+          branch: log.branch.text,
           from: currentBranch,
         });
 
-        currentBranch = log.branch;
+        currentBranch = log.branch.text;
       }
 
       if (log.type === 'commit') {
         result.push({
           type: 'commit',
           branch: currentBranch,
-          message: log.message,
+          message: log.message ? log.message.text : '',
         });
       }
 
       if (log.type === 'merge') {
         result.push({
           type: 'merge',
-          branch: log.branch,
+          branch: log.branch.text,
           into: currentBranch,
         });
       }
@@ -106,7 +106,7 @@ class Format1Parser {
         result.push({
           type: 'tag',
           branch: currentBranch,
-          tag: log.tag,
+          tag: log.tag.text,
         });
       }
     });
