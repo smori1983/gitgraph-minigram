@@ -317,6 +317,10 @@ class LogManager {
     if (this._branchList.get(into).getCommitCount() === 0) {
       throw new Error('Branch should have at least 1 commit: ' + into);
     }
+
+    if (branch === into) {
+      throw new Error('Another branch should be merged, current branch:' + into);
+    }
   }
 
   /**
