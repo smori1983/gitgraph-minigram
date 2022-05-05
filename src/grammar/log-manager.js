@@ -319,7 +319,7 @@ class LogManager {
     }
 
     if (branch === into) {
-      throw new Error('Another branch should be merged, current branch:' + into);
+      throw new Error('Another branch should be merged, current branch: ' + into);
     }
   }
 
