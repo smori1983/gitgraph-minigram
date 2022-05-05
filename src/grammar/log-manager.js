@@ -249,8 +249,7 @@ class LogManager {
   gitMerge(branch) {
     const into = this._getCurrentBranch();
 
-    this._checkBranchForMerge(branch);
-    this._checkBranchForMerge(into);
+    this._checkBranchForMerge(branch, into);
 
     return {
       type: 'merge',
@@ -306,12 +305,21 @@ class LogManager {
 
   /**
    * @param {string} branch
+   * @param {string} into
    * @throws {Error}
    * @private
    */
-  _checkBranchForMerge(branch) {
+  _checkBranchForMerge(branch, into) {
     if (this._branchList.get(branch).getCommitCount() === 0) {
       throw new Error('Branch should have at least 1 commit: ' + branch);
+    }
+
+    if (this._branchList.get(into).getCommitCount() === 0) {
+      throw new Error('Branch should have at least 1 commit: ' + into);
+    }
+
+    if (branch === into) {
+      throw new Error('Another branch should be merged, current branch:' + into);
     }
   }
 

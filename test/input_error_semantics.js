@@ -201,6 +201,28 @@ module.exports = [
     line: 7,
   },
 
+  // merge - current branch and target branch
+  {
+    case: 'merge - current branch and target branch - 01',
+    input: `
+      [log]
+      git commit
+      git merge master
+    `,
+    line: 4,
+  },
+  {
+    case: 'merge - current branch and target branch - 02',
+    input: `
+      [log]
+      git commit
+      git switch -c foo
+      git commit
+      git merge foo
+    `,
+    line: 6,
+  },
+
   // tag - already exists
   {
     case: 'tag - already exists - 01',
