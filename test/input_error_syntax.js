@@ -1,16 +1,4 @@
 module.exports = [
-  // general - no concrete input
-  {
-    case: 'general - no concrete input - 01',
-    input: ``,
-    line: 1,
-  },
-  {
-    case: 'general - no concrete input - 02',
-    input: `   `,
-    line: 1,
-  },
-
   // general - unknown segment
   {
     case: 'general - unknown segment - 01',

@@ -3,14 +3,14 @@
 }
 
 start
-  = (_ newline)*
+  = whitespace*
     o:segment_option?
     &{ logManager.optionParsed(); return true; }
-    l:segment_log
+    l:segment_log?
   {
     return {
       option: o || [],
-      log: l,
+      log: l || [],
     };
   }
 
@@ -201,3 +201,6 @@ __ 'space'
 
 newline 'newline'
   = [\r\n]+
+
+whitespace 'whitespace'
+  = [ \t\r\n]
