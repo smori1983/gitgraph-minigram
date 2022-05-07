@@ -6,11 +6,11 @@ start
   = (_ newline)*
     o:segment_option?
     &{ logManager.optionParsed(); return true; }
-    l:segment_log
+    l:segment_log?
   {
     return {
       option: o || [],
-      log: l,
+      log: l || [],
     };
   }
 

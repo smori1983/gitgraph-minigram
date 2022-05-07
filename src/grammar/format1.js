@@ -144,7 +144,7 @@ function peg$parse(input, options) {
       peg$c0 = function(o, l) {
           return {
             option: o || [],
-            log: l,
+            log: l || [],
           };
         },
       peg$c1 = "[option]",
@@ -484,6 +484,9 @@ function peg$parse(input, options) {
       }
       if (s2 !== peg$FAILED) {
         s3 = peg$parsesegment_log();
+        if (s3 === peg$FAILED) {
+          s3 = null;
+        }
         if (s3 !== peg$FAILED) {
           peg$savedPos = s0;
           s1 = peg$c0(s2, s3);
