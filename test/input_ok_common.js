@@ -1,6 +1,15 @@
 module.exports = [
   {
     input: `
+
+    `,
+    result: {
+      defaultBranch: 'master',
+      actions: [],
+    },
+  },
+  {
+    input: `
       [log]
       git commit
     `,
