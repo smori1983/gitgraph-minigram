@@ -6,7 +6,7 @@
 }
 
 start
-  = (_ newline)*
+  = whitespace*
     o:segment_option?
     l:segment_log?
   {
@@ -222,3 +222,6 @@ __ 'space'
 
 newline 'newline'
   = [\r\n]+
+
+whitespace 'whitespace'
+  = [ \t\r\n]
