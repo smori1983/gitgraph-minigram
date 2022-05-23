@@ -1,6 +1,6 @@
 # gitgraph-minigram
 
-Provides grammar and parser for git command (made with [pegjs](https://www.npmjs.com/package/pegjs)), and API invoker for [@gitgraph/js](https://www.npmjs.com/package/@gitgraph/js).
+Provides grammar and parser for git commands (made with [pegjs](https://www.npmjs.com/package/pegjs)), and API invoker for [@gitgraph/js](https://www.npmjs.com/package/@gitgraph/js).
 
 
 ## Grammar
