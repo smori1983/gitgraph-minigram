@@ -1,5 +1,5 @@
 const format2 = require('./grammar/format2');
-const LogManager = require('./grammar/log-manager');
+const LogManager = require('./grammar-support/log-manager');
 const ParseResult = require('./parse-result');
 const ParseData = require('./parse-data');
 
