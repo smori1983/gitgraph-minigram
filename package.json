@@ -6,7 +6,7 @@
   "scripts": {
     "peg:compile:format1": "pegjs src/grammar/format1.pegjs",
     "peg:compile:format2": "pegjs src/grammar/format2.pegjs",
-    "test": "mocha test/",
+    "test": "mocha test/*",
     "test:coverage": "nyc --reporter=text --reporter=html npm run test"
   },
   "dependencies": {
