@@ -18,6 +18,21 @@ class TagList {
 
     this._tags.add(tag);
   }
+
+  /**
+   * @return {string[]}
+   */
+  getTagNames() {
+    const result = [];
+
+    this._tags.forEach((tag) => {
+      result.push(tag);
+    });
+
+    result.sort();
+
+    return result;
+  }
 }
 
 module.exports = TagList;

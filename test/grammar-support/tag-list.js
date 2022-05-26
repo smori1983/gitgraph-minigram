@@ -11,4 +11,13 @@ describe('grammar-support - tag-list', () => {
       tagList.add('v1.0.0');
     }, Error);
   });
+
+  it('tag names', () => {
+    const tagList = new TagList();
+
+    tagList.add('t2');
+    tagList.add('t1');
+
+    assert.deepStrictEqual(tagList.getTagNames(), ['t1', 't2']);
+  });
 });
