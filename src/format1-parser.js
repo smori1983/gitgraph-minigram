@@ -1,6 +1,6 @@
 const GrammarError = require('pegjs').GrammarError;
 const format1 = require('./grammar/format1');
-const LogManager = require('./grammar/log-manager');
+const LogManager = require('./grammar-support/log-manager');
 const ParseResult = require('./parse-result');
 const ParseData = require('./parse-data');
 
