@@ -33,6 +33,21 @@ class BranchList {
 
     return this._branches.get(branch);
   }
+
+  /**
+   * @return {string[]}
+   */
+  getBranchNames() {
+    const result = [];
+
+    this._branches.forEach((branch) => {
+      result.push(branch.getName());
+    });
+
+    result.sort();
+
+    return result;
+  }
 }
 
 module.exports = BranchList;

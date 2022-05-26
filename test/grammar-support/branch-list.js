@@ -19,4 +19,13 @@ describe('grammar-support - branch-list', () => {
       branchList.get('master');
     }, Error);
   });
+
+  it('branch names', () => {
+    const branchList = new BranchList();
+
+    branchList.add('b2');
+    branchList.add('b1');
+
+    assert.deepStrictEqual(branchList.getBranchNames(), ['b1', 'b2']);
+  });
 });
