@@ -2,8 +2,12 @@
 
 Provides grammar and parser for git commands (made with [pegjs](https://www.npmjs.com/package/pegjs)), and API invoker for [@gitgraph/js](https://www.npmjs.com/package/@gitgraph/js).
 
+This library takes the approach to draw commit graph from the sequence of git command inputs as you usually use in terminal.
+
 
 ## Grammar
+
+Input text consists of 2 sections: `[option]` and `[log]`.
 
 ### Basic structure of input
 
@@ -21,10 +25,11 @@ defaultBranch: <branch>
 ...
 ```
 
-### Configuration
+### Options in `[option]` section
 
-- `defaultBranch`
-  - default: `master`
+| key             | value  | default  |
+|-----------------|--------|----------|
+| `defaultBranch` | string | `master` |
 
 ### Supported git commands in `[log]` section
 
@@ -51,7 +56,7 @@ import { Format2Parser, Generator } from 'gitgraph-minigram';
 const parser = new Format2Parser();
 const generator = new Generator();
 
-const input = ...;
+const input = ...; // Prepare text written in above grammar.
 const parseResult = parser.parse(input);
 
 if (parseResult.parsed()) {
@@ -63,3 +68,8 @@ if (parseResult.parsed()) {
   const e = parseResult.getError(); // pegjs syntax error object.
 }
 ```
+
+
+## Used by
+
+- [vuepress-plugin-gitgraph-minigram](https://www.npmjs.com/package/vuepress-plugin-gitgraph-minigram)
