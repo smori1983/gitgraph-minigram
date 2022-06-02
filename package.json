@@ -32,7 +32,8 @@
     "url": "git+https://github.com/smori1983/gitgraph-minigram.git"
   },
   "keywords": [
-    "gitgraph"
+    "gitgraph",
+    "pegjs"
   ],
   "author": "Shinichiro MORI",
   "license": "MIT",
