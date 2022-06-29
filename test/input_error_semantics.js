@@ -7,6 +7,7 @@ module.exports = [
       git branch foo
     `,
     line: 3,
+    message: 'Branch should have at least 1 commit: master',
   },
   {
     case: 'create branch - no commits on start point branch - 02',
@@ -18,6 +19,7 @@ module.exports = [
       git branch bar
     `,
     line: 6,
+    message: 'Branch should have at least 1 commit: foo',
   },
   {
     case: 'create branch - no commits on start point branch - 03',
@@ -26,6 +28,7 @@ module.exports = [
       git checkout -b foo
     `,
     line: 3,
+    message: 'Branch should have at least 1 commit: master',
   },
   {
     case: 'create branch - no commits on start point branch - 04',
@@ -36,6 +39,7 @@ module.exports = [
       git checkout -b bar
     `,
     line: 5,
+    message: 'Branch should have at least 1 commit: foo',
   },
   {
     case: 'create branch - no commits on start point branch - 05',
@@ -44,6 +48,7 @@ module.exports = [
       git switch -c foo
     `,
     line: 3,
+    message: 'Branch should have at least 1 commit: master',
   },
   {
     case: 'create branch - no commits on start point branch - 06',
@@ -54,6 +59,7 @@ module.exports = [
       git switch -c bar
     `,
     line: 5,
+    message: 'Branch should have at least 1 commit: foo',
   },
 
   // create branch - already created
@@ -67,6 +73,7 @@ module.exports = [
       git branch foo
     `,
     line: 6,
+    message: 'Branch already exists: foo',
   },
   {
     case: 'create branch - already created - 02',
@@ -78,6 +85,7 @@ module.exports = [
       git checkout -b foo
     `,
     line: 6,
+    message: 'Branch already exists: foo',
   },
   {
     case: 'create branch - already created - 03',
@@ -89,6 +97,7 @@ module.exports = [
       git switch -c foo
     `,
     line: 6,
+    message: 'Branch already exists: foo',
   },
   {
     case: 'create branch - already created - 04',
@@ -100,6 +109,7 @@ module.exports = [
       git branch foo
     `,
     line: 6,
+    message: 'Branch already exists: foo',
   },
   {
     case: 'create branch - already created - 05',
@@ -111,6 +121,7 @@ module.exports = [
       git checkout -b foo
     `,
     line: 6,
+    message: 'Branch already exists: foo',
   },
   {
     case: 'create branch - already created - 06',
@@ -122,6 +133,7 @@ module.exports = [
       git switch -c foo
     `,
     line: 6,
+    message: 'Branch already exists: foo',
   },
   {
     case: 'create branch - already created - 07',
@@ -133,6 +145,7 @@ module.exports = [
       git branch foo
     `,
     line: 6,
+    message: 'Branch already exists: foo',
   },
   {
     case: 'create branch - already created - 08',
@@ -144,6 +157,7 @@ module.exports = [
       git checkout -b foo
     `,
     line: 6,
+    message: 'Branch already exists: foo',
   },
   {
     case: 'create branch - already created - 09',
@@ -155,6 +169,7 @@ module.exports = [
       git switch -c foo
     `,
     line: 6,
+    message: 'Branch already exists: foo',
   },
 
   // merge - branch not created
@@ -165,6 +180,7 @@ module.exports = [
       git merge foo
     `,
     line: 3,
+    message: 'Branch not created: foo',
   },
   {
     case: 'merge - branch not created - 02',
@@ -174,6 +190,7 @@ module.exports = [
       git merge foo
     `,
     line: 4,
+    message: 'Branch not created: foo',
   },
 
   // merge - no commits on branch
@@ -187,6 +204,7 @@ module.exports = [
       git merge foo
     `,
     line: 6,
+    message: 'Branch should have at least 1 commit: foo',
   },
   {
     case: 'merge - no commits on branch - 02',
@@ -199,6 +217,7 @@ module.exports = [
       git merge foo
     `,
     line: 7,
+    message: 'Branch should have at least 1 commit: bar',
   },
 
   // merge - current branch and target branch
@@ -210,6 +229,7 @@ module.exports = [
       git merge master
     `,
     line: 4,
+    message: 'Another branch should be merged, current branch: master',
   },
   {
     case: 'merge - current branch and target branch - 02',
@@ -221,6 +241,7 @@ module.exports = [
       git merge foo
     `,
     line: 6,
+    message: 'Another branch should be merged, current branch: foo',
   },
 
   // tag - already exists
@@ -233,6 +254,7 @@ module.exports = [
       git tag v1
     `,
     line: 5,
+    message: 'Tag already exists: v1',
   },
   {
     case: 'tag - already exists - 02',
@@ -244,6 +266,7 @@ module.exports = [
       git tag v1
     `,
     line: 6,
+    message: 'Tag already exists: v1',
   },
 
   // tag - no commits on branch
@@ -254,6 +277,7 @@ module.exports = [
       git tag v1
     `,
     line: 3,
+    message: 'Branch should have at least 1 commit: master',
   },
   {
     case: 'tag - no commits on branch - 02',
@@ -264,5 +288,6 @@ module.exports = [
       git tag v1
     `,
     line: 5,
+    message: 'Branch should have at least 1 commit: foo',
   },
 ];
