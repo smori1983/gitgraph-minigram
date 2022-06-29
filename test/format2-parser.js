@@ -41,6 +41,10 @@ describe('format2-parser', () => {
       const error = parseResult.getError();
 
       assert.deepStrictEqual(error.location.start.line, arg.line);
+
+      if (typeof arg.message === 'string') {
+        assert.deepStrictEqual(error.message, arg.message);
+      }
     });
 
     given(patterns).it('should throw error from getParseData()', (arg) => {
