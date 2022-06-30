@@ -171,6 +171,39 @@ module.exports = [
     line: 6,
     message: 'Branch already exists: foo',
   },
+  {
+    case: 'create branch - already created - 10',
+    input: `
+      [log]
+      git commit
+      git branch foo
+      git branch foo
+    `,
+    line: 5,
+    message: 'Branch already exists: foo',
+  },
+  {
+    case: 'create branch - already created - 11',
+    input: `
+      [log]
+      git commit
+      git checkout -b foo
+      git checkout -b foo
+    `,
+    line: 5,
+    message: 'Branch already exists: foo',
+  },
+  {
+    case: 'create branch - already created - 12',
+    input: `
+      [log]
+      git commit
+      git switch -c foo
+      git switch -c foo
+    `,
+    line: 5,
+    message: 'Branch already exists: foo',
+  },
 
   // merge - branch not created
   {
