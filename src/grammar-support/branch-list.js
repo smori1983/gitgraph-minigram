@@ -1,5 +1,8 @@
 const Branch = require('./branch');
 
+/**
+ * Only manages branch list, does not manage commit graph.
+ */
 class BranchList {
   constructor() {
     /**
