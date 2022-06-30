@@ -57,8 +57,8 @@ class LogManager {
   gitBranch(branch) {
     const from = this._getCurrentBranch();
 
-    this._checkBranchForStartPoint(from);
     this._addBranch(branch);
+    this._checkBranchForStartPoint(from);
 
     return {
       type: 'branch:create',
@@ -75,8 +75,8 @@ class LogManager {
   gitBranchAndCheckout(branch) {
     const from = this._getCurrentBranch();
 
-    this._checkBranchForStartPoint(from);
     this._addBranch(branch);
+    this._checkBranchForStartPoint(from);
     this._setCurrentBranch(branch);
 
     return {
@@ -94,8 +94,8 @@ class LogManager {
   gitBranchAndSwitch(branch) {
     const from = this._getCurrentBranch();
 
-    this._checkBranchForStartPoint(from);
     this._addBranch(branch);
+    this._checkBranchForStartPoint(from);
     this._setCurrentBranch(branch);
 
     return {
