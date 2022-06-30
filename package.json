@@ -1,6 +1,6 @@
 {
   "name": "gitgraph-minigram",
-  "version": "0.2.1",
+  "version": "0.3.0",
   "description": "Provides grammar and parser for git commands (made with pegjs), and API invoker for gitgraph.",
   "main": "src/index.js",
   "scripts": {
