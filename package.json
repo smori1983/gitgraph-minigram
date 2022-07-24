@@ -13,7 +13,8 @@
     "@gitgraph/core": "^1.5.0",
     "@gitgraph/js": "^1.4.0",
     "@types/pegjs": "^0.10.3",
-    "pegjs": "^0.10.0"
+    "pegjs": "^0.10.0",
+    "sprintf-js": "^1.1.2"
   },
   "devDependencies": {
     "@types/mocha": "^9.1.1",
