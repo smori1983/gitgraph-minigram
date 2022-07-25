@@ -287,7 +287,7 @@ module.exports = [
       git tag v1
     `,
     line: 5,
-    message: 'Tag already exists: v1',
+    message: "Tag 'v1' already exists.",
   },
   {
     case: 'tag - already exists - 02',
@@ -299,7 +299,7 @@ module.exports = [
       git tag v1
     `,
     line: 6,
-    message: 'Tag already exists: v1',
+    message: "Tag 'v1' already exists.",
   },
 
   // tag - no commits on branch
