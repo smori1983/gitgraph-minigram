@@ -1,3 +1,4 @@
+const sprintf = require('sprintf-js').sprintf;
 const Branch = require('./branch');
 
 /**
@@ -18,7 +19,7 @@ class BranchList {
    */
   add(branch) {
     if (this._branches.has(branch)) {
-      throw new Error('Branch already exists: ' + branch);
+      throw new Error(sprintf('A branch named \'%s\' already exists.', branch));
     }
 
     this._branches.set(branch, new Branch(branch));
