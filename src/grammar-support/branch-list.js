@@ -32,7 +32,7 @@ class BranchList {
    */
   get(branch) {
     if (!this._branches.has(branch)) {
-      throw new Error('Branch not created: ' + branch);
+      throw new Error(sprintf('A branch named \'%s\' not created.', branch));
     }
 
     return this._branches.get(branch);
