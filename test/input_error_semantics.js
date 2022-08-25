@@ -73,7 +73,7 @@ module.exports = [
       git branch foo
     `,
     line: 6,
-    message: 'Branch already exists: foo',
+    message: "A branch named 'foo' already exists.",
   },
   {
     case: 'create branch - already created - 02',
@@ -85,7 +85,7 @@ module.exports = [
       git checkout -b foo
     `,
     line: 6,
-    message: 'Branch already exists: foo',
+    message: "A branch named 'foo' already exists.",
   },
   {
     case: 'create branch - already created - 03',
@@ -97,7 +97,7 @@ module.exports = [
       git switch -c foo
     `,
     line: 6,
-    message: 'Branch already exists: foo',
+    message: "A branch named 'foo' already exists.",
   },
   {
     case: 'create branch - already created - 04',
@@ -109,7 +109,7 @@ module.exports = [
       git branch foo
     `,
     line: 6,
-    message: 'Branch already exists: foo',
+    message: "A branch named 'foo' already exists.",
   },
   {
     case: 'create branch - already created - 05',
@@ -121,7 +121,7 @@ module.exports = [
       git checkout -b foo
     `,
     line: 6,
-    message: 'Branch already exists: foo',
+    message: "A branch named 'foo' already exists.",
   },
   {
     case: 'create branch - already created - 06',
@@ -133,7 +133,7 @@ module.exports = [
       git switch -c foo
     `,
     line: 6,
-    message: 'Branch already exists: foo',
+    message: "A branch named 'foo' already exists.",
   },
   {
     case: 'create branch - already created - 07',
@@ -145,7 +145,7 @@ module.exports = [
       git branch foo
     `,
     line: 6,
-    message: 'Branch already exists: foo',
+    message: "A branch named 'foo' already exists.",
   },
   {
     case: 'create branch - already created - 08',
@@ -157,7 +157,7 @@ module.exports = [
       git checkout -b foo
     `,
     line: 6,
-    message: 'Branch already exists: foo',
+    message: "A branch named 'foo' already exists.",
   },
   {
     case: 'create branch - already created - 09',
@@ -169,7 +169,7 @@ module.exports = [
       git switch -c foo
     `,
     line: 6,
-    message: 'Branch already exists: foo',
+    message: "A branch named 'foo' already exists.",
   },
   {
     case: 'create branch - already created - 10',
@@ -180,7 +180,7 @@ module.exports = [
       git branch foo
     `,
     line: 5,
-    message: 'Branch already exists: foo',
+    message: "A branch named 'foo' already exists.",
   },
   {
     case: 'create branch - already created - 11',
@@ -191,7 +191,7 @@ module.exports = [
       git checkout -b foo
     `,
     line: 5,
-    message: 'Branch already exists: foo',
+    message: "A branch named 'foo' already exists.",
   },
   {
     case: 'create branch - already created - 12',
@@ -202,7 +202,7 @@ module.exports = [
       git switch -c foo
     `,
     line: 5,
-    message: 'Branch already exists: foo',
+    message: "A branch named 'foo' already exists.",
   },
 
   // merge - branch not created
@@ -213,7 +213,7 @@ module.exports = [
       git merge foo
     `,
     line: 3,
-    message: 'Branch not created: foo',
+    message: "A branch named 'foo' not created.",
   },
   {
     case: 'merge - branch not created - 02',
@@ -223,7 +223,7 @@ module.exports = [
       git merge foo
     `,
     line: 4,
-    message: 'Branch not created: foo',
+    message: "A branch named 'foo' not created.",
   },
 
   // merge - no commits on branch
@@ -287,7 +287,7 @@ module.exports = [
       git tag v1
     `,
     line: 5,
-    message: 'Tag already exists: v1',
+    message: "Tag 'v1' already exists.",
   },
   {
     case: 'tag - already exists - 02',
@@ -299,7 +299,7 @@ module.exports = [
       git tag v1
     `,
     line: 6,
-    message: 'Tag already exists: v1',
+    message: "Tag 'v1' already exists.",
   },
 
   // tag - no commits on branch

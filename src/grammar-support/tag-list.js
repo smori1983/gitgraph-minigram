@@ -1,3 +1,5 @@
+const sprintf = require('sprintf-js').sprintf;
+
 class TagList {
   constructor() {
     /**
@@ -13,7 +15,7 @@ class TagList {
    */
   add(tag) {
     if (this._tags.has(tag)) {
-      throw new Error('Tag already exists: ' + tag);
+      throw new Error(sprintf('Tag \'%s\' already exists.', tag));
     }
 
     this._tags.add(tag);
