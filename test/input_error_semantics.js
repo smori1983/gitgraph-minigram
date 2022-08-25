@@ -213,7 +213,7 @@ module.exports = [
       git merge foo
     `,
     line: 3,
-    message: 'Branch not created: foo',
+    message: "A branch named 'foo' not created.",
   },
   {
     case: 'merge - branch not created - 02',
@@ -223,7 +223,7 @@ module.exports = [
       git merge foo
     `,
     line: 4,
-    message: 'Branch not created: foo',
+    message: "A branch named 'foo' not created.",
   },
 
   // merge - no commits on branch
