@@ -4,6 +4,8 @@
  * @typedef {import('./parse-data')} ParseData
  */
 
+const sprintf = require('sprintf-js').sprintf;
+
 class Generator {
   constructor() {
     /**
@@ -93,7 +95,7 @@ class Generator {
    */
   _getBranch(name) {
     if (this._branches.has(name) === false) {
-      throw new Error('Branch not created: ' + name);
+      throw new Error(sprintf('A branch named \'%s\' not created.', name));
     }
 
     return this._branches.get(name);
